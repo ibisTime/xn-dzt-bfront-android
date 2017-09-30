@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="定制信息"
+                    android:textSize="14sp"
+                    android:textColor="@color/blue"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:gravity="center"
+                android:text="定制信息"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@drawable/corner_order_blue"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="着装风格"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_style"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_style_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_style_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_style_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_style_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_style"
+                android:visibility="gone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="面料"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_fabric"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_fabric_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_fabric_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_fabric_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_fabric_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_fabric"
+                android:visibility="gone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="规格"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_parameter"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_parameter_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_parameter_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_parameter_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_parameter_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_parameter"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="门襟"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_closure"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_closure_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_closure_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_closure_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_closure_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_closure"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="领型"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_Collar"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_Collar_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_Collar_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_Collar_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_Collar_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_collar"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="袖型"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_sleeve"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_sleeve_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_sleeve_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_sleeve_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_sleeve_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_sleeve"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="口袋"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_pocket"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_pocket_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_pocket_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_pocket_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_pocket_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_pocket"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="收省"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/txt_shirt_darted"
+                    android:layout_marginLeft="19dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_333333"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_darted_edit"
+                        android:layout_gravity="right"
+                        android:text="编辑"
+                        android:textSize="14sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/gray_b0b0b0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_darted_btn"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txt_darted_cancel"
+                            android:visibility="gone"
+                            android:text="取消"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txt_darted_confirm"
+                            android:text="确认"
+                            android:textSize="14sp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/blue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line_mg18"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_shirt_darted"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/sp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.cdkj.hydz.module.user.account.CardListActivity">
+
+        <View
+            android:background="@color/lineColor"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="持卡人"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/fontColor_gray"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入姓名"
+                android:textColor="#333333"
+                android:textColorHint="@color/fontColor_hint"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/lineColor"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="银行"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/fontColor_gray"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/txt_bankName"
+                android:hint="请选择银行"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:textColorHint="@color/fontColor_hint"
+                android:textColor="#333333"
+                android:background="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/lineColor"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="支行"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/fontColor_gray"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:id="@+id/edt_subbranch"
+                android:layout_marginRight="15dp"
+                android:hint="请填写支行"
+                android:textSize="15sp"
+                android:textColorHint="@color/fontColor_hint"
+                android:textColor="#333333"
+                android:background="@null"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/lineColor"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="卡号"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/fontColor_gray"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:id="@+id/edt_cardId"
+                android:layout_marginRight="15dp"
+                android:hint="银行卡号"
+                android:textSize="15sp"
+                android:textColorHint="@color/fontColor_hint"
+                android:textColor="#333333"
+                android:background="@null"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/lineColor"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+
+
+        <TextView
+            android:id="@+id/txt_confirm"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/corner_order_blue"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">合衣私人定制</string>
+
+    <string name="order_title">订单</string>
+    <string name="man_title">客户</string>
+    <string name="message_title">客户消息</string>
+    <string name="card_title">我的银行卡</string>
+    <string name="title_activity_fabric">FabricActivity</string>
+</resources>

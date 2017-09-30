@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/corner_message"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp">
+
+                <EditText
+                    android:id="@+id/edt_search"
+                    android:background="@null"
+                    android:hint="请输入客户姓名、昵称或手机号"
+                    android:textColorHint="@color/gray_b3b3b3"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_search"
+                android:gravity="center"
+                android:text="搜索"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:background="@drawable/corner_order_blue"
+                android:layout_marginLeft="10dp"
+                android:layout_width="63dp"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_man"
+            android:background="@color/gray_f2f2f2"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:scrollbars="none"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+       <LinearLayout
+           android:visibility="gone"
+           android:background="@color/gray_f2f2f2"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="39dp">
+
+           <TextView
+               android:id="@+id/txt_all"
+               android:gravity="center"
+               android:text="全部客户"
+               android:textSize="12sp"
+               android:textColor="@color/black"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+           <TextView
+               android:id="@+id/txt_new"
+               android:gravity="center"
+               android:text="新客户"
+               android:textSize="12sp"
+               android:textColor="@color/gray_b3b3b3"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+           <TextView
+               android:id="@+id/txt_old"
+               android:gravity="center"
+               android:text="老用户"
+               android:textSize="12sp"
+               android:textColor="@color/gray_b3b3b3"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+           <TextView
+               android:id="@+id/txt_active"
+               android:gravity="center"
+               android:text="活跃用户"
+               android:textSize="12sp"
+               android:textColor="@color/gray_b3b3b3"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+           <TextView
+               android:id="@+id/txt_very"
+               android:gravity="center"
+               android:text="非常活跃用户"
+               android:textSize="12sp"
+               android:textColor="@color/gray_b3b3b3"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+       </LinearLayout>
+
+    </LinearLayout>
+</layout>
