@@ -132,7 +132,6 @@ public class SettingActivity extends AbsBaseActivity {
 
         SPUtilHelpr.logOutClear();
         EventBus.getDefault().post(EventTags.AllFINISH);
-//        EventBus.getDefault().post(EventTags.MAINFINISH);
 
         LoginActivity.open(this,true);
         finish();
