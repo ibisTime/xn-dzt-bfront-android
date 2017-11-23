@@ -22,6 +22,7 @@ public class ItemViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
     public ImageView imgItem;
     public TextView txtBorder;
+    public TextView txtName;
 
     int screenWidth;
     Activity context;
@@ -32,6 +33,7 @@ public class ItemViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
         imgItem = itemView.findViewById(R.id.img_item);
         txtBorder = itemView.findViewById(R.id.txt_border);
+        txtName = itemView.findViewById(R.id.txt_name);
 
         DisplayMetrics metric = new DisplayMetrics();
         this.context.getWindowManager().getDefaultDisplay().getMetrics(metric);

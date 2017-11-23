@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.utils.ScrollGridLayoutManager;
 import com.cdkj.hydz.R;
 import com.cdkj.hydz.databinding.FragmentOrderMeasureBinding;
 import com.cdkj.hydz.module.adapter.OrderMeasureAdapter;
@@ -47,7 +48,7 @@ public class OrderMeasureFragment extends BaseLazyFragment {
 
     private FragmentOrderMeasureBinding mBinding;
 
-    private GridLayoutManager mGridLayoutManager;
+    private ScrollGridLayoutManager mGridLayoutManager;
 
     private OrderMeasureAdapter mAdapter;
 
@@ -120,7 +121,7 @@ public class OrderMeasureFragment extends BaseLazyFragment {
     private void initRecyclerView() {
 
         mAdapter = new OrderMeasureAdapter(data);
-        mGridLayoutManager = new GridLayoutManager(mActivity, 2);
+        mGridLayoutManager = new ScrollGridLayoutManager(mActivity, 2);
 
         // 设置布局管理器
         mBinding.recyclerOrderMeasure.setLayoutManager(mGridLayoutManager);

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.utils.ScrollGridLayoutManager;
 import com.cdkj.hydz.R;
 import com.cdkj.hydz.databinding.FragmentOrderBodyBinding;
 import com.cdkj.hydz.module.adapter.OrderBodyAdapter;
@@ -44,7 +45,7 @@ public class OrderBodyFragment extends BaseLazyFragment {
 
     private FragmentOrderBodyBinding mBinding;
 
-    private GridLayoutManager mGridLayoutManager;
+    private ScrollGridLayoutManager mGridLayoutManager;
 
     private OrderBodyAdapter mAdapter;
 
@@ -108,7 +109,7 @@ public class OrderBodyFragment extends BaseLazyFragment {
     private void initRecyclerView() {
 
         mAdapter = new OrderBodyAdapter(mActivity, data);
-        mGridLayoutManager = new GridLayoutManager(mActivity, 2);
+        mGridLayoutManager = new ScrollGridLayoutManager(mActivity, 2);
 
         // 设置布局管理器
         mBinding.recyclerOrderMeasure.setLayoutManager(mGridLayoutManager);

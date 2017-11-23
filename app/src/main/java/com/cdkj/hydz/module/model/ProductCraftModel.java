@@ -157,6 +157,15 @@ public class ProductCraftModel {
             private String modelCode;
             private ModelBean model;
             private boolean isSelect = false;
+            private String isDefault; //1默认
+
+            public String getIsDefault() {
+                return isDefault;
+            }
+
+            public void setIsDefault(String isDefault) {
+                this.isDefault = isDefault;
+            }
 
             public boolean isSelect() {
                 return isSelect;
@@ -420,7 +429,15 @@ public class ProductCraftModel {
                 private String modelCode;
                 private ModelBeanX model;
                 private boolean isSelect;
+                private String isDefault; //1默认
 
+                public String getIsDefault() {
+                    return isDefault;
+                }
+
+                public void setIsDefault(String isDefault) {
+                    this.isDefault = isDefault;
+                }
                 public boolean isSelect() {
                     return isSelect;
                 }

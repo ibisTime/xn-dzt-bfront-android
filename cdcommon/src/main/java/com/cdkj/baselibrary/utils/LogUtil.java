@@ -32,13 +32,13 @@ public class LogUtil {
             for (int i = 0; i <= chunkCount; i++) {
                 int max = 4000 * (i + 1);
                 if (max >= responseInfo.length()) {
-                    Log.e(TAG, responseInfo.substring(4000 * i));
+                    Log.i(TAG, responseInfo.substring(4000 * i));
                 } else {
-                    Log.e(TAG, responseInfo.substring(4000 * i, max));
+                    Log.i(TAG, responseInfo.substring(4000 * i, max));
                 }
             }
         } else {
-            Log.e(TAG, responseInfo.toString());
+            Log.i(TAG, responseInfo.toString());
         }
     }
 }

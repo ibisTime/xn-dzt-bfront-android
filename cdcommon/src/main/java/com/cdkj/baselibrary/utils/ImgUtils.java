@@ -28,9 +28,9 @@ public class ImgUtils {
 
         try {
             if (imgid.indexOf("http://") != -1){
-                Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                Glide.with(context).load(imgid).placeholder(R.drawable.def_logo).error(R.drawable.def_logo).transform(new GlideCircleTransform(context)).into(img);
             }else {
-                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.def_logo).error(R.drawable.def_logo).transform(new GlideCircleTransform(context)).into(img);
             }
 
         }catch (Exception e){
@@ -46,9 +46,9 @@ public class ImgUtils {
 
         try {
             if (imgid.indexOf("http://") != -1){
-                Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                Glide.with(context).load(imgid).placeholder(R.drawable.def_logo).error(R.drawable.def_logo).transform(new GlideCircleTransform(context)).into(img);
             }else {
-                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.def_logo).error(R.drawable.def_logo).transform(new GlideCircleTransform(context)).into(img);
             }
         }catch (Exception e){
             LogUtil.E("图片加载错误");

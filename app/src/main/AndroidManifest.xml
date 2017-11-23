@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".module.user.login.LoginActivity" />
         <activity android:name=".module.user.login.StartActivity">
             <intent-filter>
@@ -60,7 +63,10 @@
         <activity android:name=".module.user.account.WithdrawActivity" />
         <activity android:name=".module.user.account.BillPastActivity" />
         <activity android:name=".module.order.OrderActivity" />
-        <activity android:name=".module.order.product.ProductActivity" />
+        <activity android:name=".module.order.product.ProductActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".module.user.account.BillListActivity" />
         <activity android:name=".module.user.account.AuthenticateActivity" />
         <activity android:name=".module.main.message.MessageActivity" />

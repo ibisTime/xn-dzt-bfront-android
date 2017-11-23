@@ -20,6 +20,7 @@ import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.CameraHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.QiNiuUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -117,11 +118,11 @@ public class SettingActivity extends AbsBaseActivity {
         });
 
         mBinding.layoutCard.setOnClickListener(view -> {
-            CardListActivity.open(this,false);
+            CardListActivity.open(this, false);
         });
 
         mBinding.btnLogout.setOnClickListener(v -> {
-            showDoubleWarnListen("确认退出登录？",view -> {
+            showDoubleWarnListen("确认退出登录？", view -> {
                 logOut();
             });
         });
@@ -133,7 +134,7 @@ public class SettingActivity extends AbsBaseActivity {
         SPUtilHelpr.logOutClear();
         EventBus.getDefault().post(EventTags.AllFINISH);
 
-        LoginActivity.open(this,true);
+        LoginActivity.open(this, true);
         finish();
 
     }
@@ -188,7 +189,8 @@ public class SettingActivity extends AbsBaseActivity {
             return;
         }
         if (requestCode == PHOTOFLAG) {
-            String path = data.getStringExtra(ImageSelectActivity.staticPath);
+            String path = data.getStringExtra(CameraHelper.staticPath);
+            showLoadingDialog();
             new QiNiuUtil(this).getQiniuURL(new QiNiuUtil.QiNiuCallBack() {
                 @Override
                 public void onSuccess(String key, ResponseInfo info, JSONObject res) {
@@ -197,6 +199,7 @@ public class SettingActivity extends AbsBaseActivity {
 
                 @Override
                 public void onFal(String info) {
+                    disMissLoading();
                 }
             }, path);
 
@@ -205,6 +208,7 @@ public class SettingActivity extends AbsBaseActivity {
 
     /**
      * 更新哟哦能互头像
+     *
      * @param key
      */
     private void updateUserPhoto(final String key) {

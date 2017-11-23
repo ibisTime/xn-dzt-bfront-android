@@ -46,30 +46,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (mData.get(position).isSelect()){
+        ProductModel productModel = mData.get(position);
+        if (productModel == null) return;
+        if (productModel.isSelect()) {
             holder.txtBorder.setBackgroundResource(R.drawable.border_order_blue);
 
-            mData.get(position).setEventBusTag(EventTags.PRODUCT);
-            EventBus.getDefault().post(mData.get(position));
-            Log.e("EventTags.PRODUCT","EventTags.PRODUCT");
-        }else {
+            productModel.setEventBusTag(EventTags.PRODUCT);
+            EventBus.getDefault().post(productModel);
+            Log.e("EventTags.PRODUCT", "EventTags.PRODUCT");
+        } else {
             holder.txtBorder.setBackgroundResource(R.drawable.border_order_gray);
         }
-        ImgUtils.loadRoundImage(mContext, MyConfig.IMGURL+mData.get(position).getPic(), holder.imgItem);
+        ImgUtils.loadRoundImage(mContext, MyConfig.IMGURL + productModel.getPic(), holder.imgItem);
+
+        holder.txtName.setText(productModel.getName());
+
 
         holder.txtBorder.setOnClickListener(view -> {
 
-            if(!mData.get(position).isSelect()){
-                // 选择表示 false 已选择
-                for (ProductModel model : mData){
-                    model.setSelect(false);
-                }
-
-                mData.get(position).setSelect(true);
-
-                notifyDataSetChanged();
+            for (ProductModel model : mData) {
+                model.setSelect(false);
             }
 
+            productModel.setSelect(true);
+
+            notifyDataSetChanged();
 
         });
     }
@@ -84,12 +85,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtBorder;
+        TextView txtName;
         ImageView imgItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imgItem = itemView.findViewById(R.id.img_item);
             txtBorder = itemView.findViewById(R.id.txt_border);
+            txtName = itemView.findViewById(R.id.txt_name);
         }
     }
 

@@ -53,12 +53,20 @@ public class OrderCraftFragment extends BaseLazyFragment {
         return mBinding.getRoot();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         list = new ArrayList<>();
         adapter = new OrderCraftAdapter(mActivity, list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
 
         //竖直排列、正向排序
-        mBinding.recyclerCraft.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mBinding.recyclerCraft.setLayoutManager(linearLayoutManager);
+
+
         mBinding.recyclerCraft.setAdapter(adapter);
 
         tabList = new ArrayList<>();
@@ -79,19 +87,19 @@ public class OrderCraftFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setData(String tag){
+    public void setData(String tag) {
         try {
-            if(tag.equals(EventTags.ORDERDATAOK)){
+            if (tag.equals(EventTags.ORDERDATAOK)) {
 
-                if(orderDeatilModel != null){
+                if (orderDeatilModel != null) {
 
-                    if (OrderHelper.orderDeatilModel.getProduct() != null){
+                    if (OrderHelper.orderDeatilModel.getProduct() != null) {
 
-                        if (OrderHelper.orderDeatilModel.getProduct().getProductVarList() != null){
+                        if (OrderHelper.orderDeatilModel.getProduct().getProductVarList() != null) {
 
-                            if (OrderHelper.orderDeatilModel.getProduct().getProductVarList().size()== 1){
+                            if (OrderHelper.orderDeatilModel.getProduct().getProductVarList().size() == 1) {
                                 mBinding.layoutTab.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 tabList.clear();
                                 tabList.addAll(OrderHelper.orderDeatilModel.getProduct().getProductVarList());
                                 tabList.get(0).setSelect(true);
@@ -107,13 +115,13 @@ public class OrderCraftFragment extends BaseLazyFragment {
 
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Subscribe
-    public void update(OrderDetailModel.ProductBean.ProductVarListBean model){
+    public void update(OrderDetailModel.ProductBean.ProductVarListBean model) {
 
         list.clear();
         list.add(OrderHelper.orderDeatilModel.getProduct().getProductVarList().get(model.getPosition()));

@@ -234,7 +234,7 @@ public class PermissionHelper {
 
 
     @TargetApi(11)
-    private static Activity getActivity(@NonNull Object object) {
+    public static Activity getActivity(@NonNull Object object) {
         if (object instanceof Activity) {
             return ((Activity) object);
         } else if (object instanceof Fragment) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -37,7 +38,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
     private final int ONE_LINE_SHOW_NUMBER = 3;
     private List<ProductCraftModel.ProductCategoryListBean> productCategoryList;
-    
+
     public StyleViewHolder(Context context, int viewId, ViewGroup parent, int viewType) {
         super(context, viewId, parent, viewType);
 
@@ -56,8 +57,8 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         txtCraftName.setText(list.get(position).getDvalue());
 
         // 设置已选的默认值
-        for (ProductCraftModel.ProductCategoryListBean.CraftListBean  bean : list.get(position).getCraftList()){
-            if(bean.isSelect()){
+        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
+            if (bean.isSelect()) {
                 txtCraftValue.setText(bean.getName());
             }
         }
@@ -65,7 +66,9 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         //每行显示3个，水平显示
         recyclerCraft.setLayoutManager(new GridLayoutManager(mActivity, ONE_LINE_SHOW_NUMBER, LinearLayoutManager.VERTICAL, false));
         //设置Adapter
-        recyclerCraft.setAdapter(new GridAdapter(list.get(position).getCraftList(),position));
+        GridAdapter gridAdapter = new GridAdapter(list.get(position).getCraftList(), position);
+        recyclerCraft.setAdapter(gridAdapter);
+        gridAdapter.setDefluteValue();
 
         txtEdit.setOnClickListener(view -> {
             txtEdit.setVisibility(View.GONE);
@@ -74,14 +77,14 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         });
 
         txtConfirm.setOnClickListener(view -> {
-            if (check(list, position)){
-                txtEdit.setVisibility(View.VISIBLE);
-                layoutBtn.setVisibility(View.GONE);
-                recyclerCraft.setVisibility(View.GONE);
-
-                list.get(position).getCraftList().get(craftPosition).setSelect(true);
-
-            }
+//            if (check(list, position)) {
+//                txtEdit.setVisibility(View.VISIBLE);
+//                layoutBtn.setVisibility(View.GONE);
+//                recyclerCraft.setVisibility(View.GONE);
+//
+//                list.get(position).getCraftList().get(craftPosition).setSelect(true);
+//
+//            }
 
         });
     }
@@ -90,7 +93,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         private int itemPosition;
         private List<ProductCraftModel.ProductCategoryListBean.CraftListBean> craftList;
 
-        public GridAdapter(List<ProductCraftModel.ProductCategoryListBean.CraftListBean> craftList,int itemPosition){
+        public GridAdapter(List<ProductCraftModel.ProductCategoryListBean.CraftListBean> craftList, int itemPosition) {
             this.craftList = craftList;
             this.itemPosition = itemPosition;
         }
@@ -105,28 +108,27 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
             holder.txtBorder.setText(craftList.get(position).getName());
 
-            if (craftList.get(position).isSelect()){
+            if (craftList.get(position).isSelect()) {
                 holder.txtBorder.setBackgroundResource(R.drawable.corner_order_blue);
                 holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.white));
-            }else {
+            } else {
                 holder.txtBorder.setBackgroundResource(R.drawable.corner_order_gray);
                 holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.gray_333333));
             }
 
+            holder.txtName.setText(craftList.get(position).getName());
+
             holder.txtBorder.setOnClickListener(view -> {
-                if(!craftList.get(position).isSelect()){
+                if (!craftList.get(position).isSelect()) {
 
                     craftPosition = position;
 
-                    for (ProductCraftModel.ProductCategoryListBean.CraftListBean  bean : craftList){
+                    for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
                         bean.setSelect(false);
                     }
                     craftList.get(position).setSelect(true);
 
-                    txtCraftValue.setText(craftList.get(position).getName()
-                            +"("
-                            + MoneyUtils.showPriceWithUnit(craftList.get(position).getPrice())
-                            +")");
+                    setSelectValue(craftList.get(position));
 
 //                    holder.txtBorder.setBackgroundResource(R.drawable.corner_order_blue);
 //                    holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.white));
@@ -139,6 +141,23 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
         }
 
+        private void setSelectValue(ProductCraftModel.ProductCategoryListBean.CraftListBean bean) {
+            txtCraftValue.setText(bean.getName()
+                    + "("
+                    + MoneyUtils.showPriceWithUnit(bean.getPrice())
+                    + ")");
+        }
+
+        public void setDefluteValue() {
+            for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
+                if (bean == null) continue;
+
+                if (TextUtils.equals("1", bean.getIsDefault())) {
+                    setSelectValue(bean);
+                    break;
+                }
+            }
+        }
 
         @Override
         public int getItemCount() {
@@ -146,14 +165,14 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         }
     }
 
-    private boolean check(List<ProductCraftModel.ProductCategoryListBean> list, int position){
-        for(ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()){
-            if(bean.isSelect()){
+    private boolean check(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
+        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
+            if (bean.isSelect()) {
                 return true;
             }
         }
 
-        Toast.makeText(mActivity, "请选择"+list.get(position).getDvalue(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, "请选择" + list.get(position).getDvalue(), Toast.LENGTH_SHORT).show();
         return false;
     }
 }

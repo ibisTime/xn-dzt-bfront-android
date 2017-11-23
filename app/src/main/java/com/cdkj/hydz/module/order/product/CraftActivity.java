@@ -155,7 +155,6 @@ public class CraftActivity extends AbsBaseActivity {
 
             Log.e("value",bean.getDvalue());
             Log.e("kind",bean.getKind());
-            Log.e("checkCraft(bean)",checkCraft(bean)+"");
 
             if (!checkCraft(bean)){
                 return false;

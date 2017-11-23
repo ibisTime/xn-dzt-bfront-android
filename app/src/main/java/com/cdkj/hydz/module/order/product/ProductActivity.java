@@ -56,8 +56,6 @@ public class ProductActivity extends AbsBaseActivity {
     private GridLayoutManager mManager;
     private List<ProductModel> mData = new ArrayList<>();
 
-    private boolean isConfirm = false;
-
     // 子产品
     private List<ProductModel.ModelSpecsListBean> childList;
     private ProductChildAdapter childAdapter;
@@ -67,12 +65,13 @@ public class ProductActivity extends AbsBaseActivity {
     private OrderDetailModel orderDetailModel;
     private FHYModel fhyModel;
 
+
     /**
      * 打开当前页面
      *
      * @param context
      */
-    public static void open(Context context,String orderCode) {
+    public static void open(Context context, String orderCode) {
         if (context == null) {
             return;
         }
@@ -110,27 +109,13 @@ public class ProductActivity extends AbsBaseActivity {
         mHerderView.txtProductSelect.setOnClickListener(view -> {
 
             mHerderView.txtProductSelect.setVisibility(View.GONE);
-            mHerderView.layoutProductBtn.setVisibility(View.VISIBLE);
-
+//            mHerderView.layoutProductBtn.setVisibility(View.GONE);
             mHerderView.recyclerProduct.setVisibility(View.VISIBLE);
-
-            isConfirm = false;
 
         });
         mHerderView.txtProductConfirm.setOnClickListener(view -> {
-            if (check()){
-
-                mHerderView.recyclerProduct.setVisibility(View.GONE);
-                mHerderView.layoutProductBtn.setVisibility(View.GONE);
-                mHerderView.txtProductSelect.setVisibility(View.VISIBLE);
-
-                isConfirm = true;
-
-                childList.clear();
-                childList.addAll(selectModel.getModelSpecsList());
-                childAdapter.notifyDataSetChanged();
-
-                setTotalPrice();
+            if (check()) {
+                productConfirm();
             }
         });
 
@@ -142,9 +127,9 @@ public class ProductActivity extends AbsBaseActivity {
         });
         mFooterView.txtAddressConfirm.setOnClickListener(view -> {
 
-            if (TextUtils.equals(mFooterView.edtAddress.getText().toString(), "")){
+            if (TextUtils.equals(mFooterView.edtAddress.getText().toString(), "")) {
                 Toast.makeText(this, "请填写邮寄地址", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 mFooterView.txtAddressEdit.setVisibility(View.VISIBLE);
                 mFooterView.layoutAddressBtn.setVisibility(View.GONE);
                 mFooterView.layoutAddress.setVisibility(View.GONE);
@@ -161,9 +146,9 @@ public class ProductActivity extends AbsBaseActivity {
             mFooterView.layoutRemark.setVisibility(View.VISIBLE);
         });
         mFooterView.txtRemarkConfirm.setOnClickListener(view -> {
-            if (TextUtils.equals(mFooterView.edtRemark.getText().toString(), "")){
+            if (TextUtils.equals(mFooterView.edtRemark.getText().toString(), "")) {
                 Toast.makeText(this, "请填写订单备注", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 mFooterView.txtRemarkEdit.setVisibility(View.VISIBLE);
                 mFooterView.layoutRemarkBtn.setVisibility(View.GONE);
                 mFooterView.layoutRemark.setVisibility(View.GONE);
@@ -175,47 +160,57 @@ public class ProductActivity extends AbsBaseActivity {
 
         mFooterView.btnConfirm.setOnClickListener(view -> {
 
-            for (ProductModel model : mData){
+            for (ProductModel model : mData) {
 
-                if (model.isSelect()){
+                if (model.isSelect()) {
 
-                    if (isConfirm){
-
-                        if(checkCommit()){// 定价
-
-                            madePrice();
-                            return;
-                        }else {
-                            return;
-                        }
-
-                    }else {
-
-                        showToast("请确认选择");
+                    if (checkCommit()) {// 定价
+                        madePrice();
+                        return;
+                    } else {
+                        return;
                     }
+
 
                 }
             }
 
-            showToast("请选择产品");
+            showToast("请选择定制产品");
 
         });
     }
 
-    private boolean checkCommit(){
-        for (ProductModel.ModelSpecsListBean bean : childList){
-            if(bean.getClothCode() == null || bean.getClothCode().equals("")){
-                showToast("请选择"+bean.getName()+"基础");
+
+    /**
+     * 产品选择确认
+     */
+    private void productConfirm() {
+        mHerderView.recyclerProduct.setVisibility(View.GONE);
+        mHerderView.layoutProductBtn.setVisibility(View.GONE);
+        mHerderView.txtProductSelect.setVisibility(View.VISIBLE);
+
+        childList.clear();
+        childList.addAll(selectModel.getModelSpecsList());
+        childAdapter.notifyDataSetChanged();
+
+        setTotalPrice();
+    }
+
+    private boolean checkCommit() {
+        for (ProductModel.ModelSpecsListBean bean : childList) {
+            if (bean.getClothCode() == null || bean.getClothCode().equals("")) {
+                showToast("请选择" + bean.getName() + "基础");
                 return false;
             }
 
-            if(bean.getCodeList() == null || bean.getCodeList().size() == 0){
-                showToast("请选择"+bean.getName()+"工艺");
+            if (bean.getCodeList() == null || bean.getCodeList().size() == 0) {
+                showToast("请选择" + bean.getName() + "工艺");
                 return false;
             }
+
         }
 
-        if (TextUtils.equals(mFooterView.edtAddress.getText().toString(), "")){
+        if (TextUtils.equals(mFooterView.edtAddress.getText().toString(), "")) {
             showToast("请填写邮寄地址");
             return false;
         }
@@ -242,26 +237,25 @@ public class ProductActivity extends AbsBaseActivity {
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle("定价");
         setSubLeftImgState(true);
-
         getFHY();
 
     }
 
     @Subscribe
-    public void setCraftData(ProductCommitModel model){
-        for (ProductModel.ModelSpecsListBean bean : childList){
-            if (bean.getCode().equals(model.getModelSpecsCode())){
+    public void setCraftData(ProductCommitModel model) {
+        for (ProductModel.ModelSpecsListBean bean : childList) {
+            if (bean.getCode().equals(model.getModelSpecsCode())) {
 
                 try {
                     List<String> codeList = new ArrayList<>();
                     BigDecimal bigDecimal = new BigDecimal(0);
 
-                    for (ProductCommitModel.ValueBean valueBean : model.getValueList()){
-                        if (valueBean.getKind().equals("3")){
-                            Map<String,String> map = new HashMap<>();
-                            map.put(valueBean.getKey(),valueBean.getName());
+                    for (ProductCommitModel.ValueBean valueBean : model.getValueList()) {
+                        if (valueBean.getKind().equals("3")) {
+                            Map<String, String> map = new HashMap<>();
+                            map.put(valueBean.getKey(), valueBean.getName());
                             bean.setMap(map);
-                        }else {
+                        } else {
                             codeList.add(valueBean.getCode());
                             bigDecimal = bigDecimal.add(valueBean.getPrice());
                         }
@@ -272,7 +266,7 @@ public class ProductActivity extends AbsBaseActivity {
                     bean.getCodeList().addAll(codeList);
 
                     childAdapter.notifyDataSetChanged();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -283,7 +277,7 @@ public class ProductActivity extends AbsBaseActivity {
     }
 
     @Subscribe
-    public void setFabricData(ProductFabricCommitModel model){
+    public void setFabricData(ProductFabricCommitModel model) {
 
         for (ProductModel.ModelSpecsListBean bean : childList) {
             if (bean.getCode().equals(model.getModelSpecsCode())) {
@@ -297,7 +291,7 @@ public class ProductActivity extends AbsBaseActivity {
         setTotalPrice();
     }
 
-    private void setTotalPrice(){
+    private void setTotalPrice() {
         BigDecimal craftPrice = new BigDecimal(0);
         BigDecimal fabricPrice = new BigDecimal(0);
 
@@ -306,19 +300,19 @@ public class ProductActivity extends AbsBaseActivity {
             fabricPrice = fabricPrice.add(bean.getFabricPrice());
         }
 
-        for (ProductModel model : mData){
+        for (ProductModel model : mData) {
 
-            if (model.isSelect()){
+            if (model.isSelect()) {
 
-                if (model.getType().equals("0")){ //衬衫
+                if (model.getType().equals("0")) { //衬衫
                     mFooterView.txtPrice.setText(MoneyUtils.showPriceWithUnit(craftPrice.add(fabricPrice)));
-                }else {
+                } else {
 
-                    if (orderDetailModel.getLevel().equals("1")){ // 非会员
+                    if (orderDetailModel.getLevel().equals("1")) { // 非会员
                         mFooterView.txtPrice.setText(MoneyUtils.showPriceWithUnit(craftPrice.add(fabricPrice)));
-                    }else {
+                    } else {
 
-                        BigDecimal price =  craftPrice.add(fabricPrice);
+                        BigDecimal price = craftPrice.add(fabricPrice);
                         BigDecimal fhy = new BigDecimal(Double.parseDouble(fhyModel.getCvalue()));
 
                         mFooterView.txtPrice.setText(MoneyUtils.showPriceWithUnit(price.multiply(fhy)));
@@ -334,24 +328,25 @@ public class ProductActivity extends AbsBaseActivity {
     }
 
 
-
     @Subscribe
-    public void setView(ProductModel model){
-        if(model.getEventBusTag().equals(EventTags.PRODUCT)){
+    public void setView(ProductModel model) {
+        if (model.getEventBusTag().equals(EventTags.PRODUCT)) {
             selectModel = model;
 
             modelCode = model.getCode();
             mHerderView.txtProductName.setText(model.getName());
         }
 
+        productConfirm();
+
     }
 
     public void getFHY() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("ckey","FHY");
+        map.put("ckey", "FHY");
         map.put("companyCode", MyConfig.COMPANYCODE);
-        map.put("systemCode",MyConfig.SYSTEMCODE);
+        map.put("systemCode", MyConfig.SYSTEMCODE);
         Call call = RetrofitUtils.createApi(MyApiServer.class).getFHY("620917", StringUtils.getJsonToString(map));
 
         addCall(call);
@@ -362,7 +357,7 @@ public class ProductActivity extends AbsBaseActivity {
 
             @Override
             protected void onSuccess(FHYModel data, String SucMessage) {
-                if (data ==null)
+                if (data == null)
                     return;
 
                 fhyModel = data;
@@ -379,11 +374,13 @@ public class ProductActivity extends AbsBaseActivity {
         });
     }
 
-    private void getProduct(){
+    private void getProduct() {
         Map<String, String> map = new HashMap<>();
 
         map.put("status", "1");
-
+        map.put("orderDir", "asc");
+        map.put("orderColumn", "order_no");
+        map.put("orderDir", "asc");
         Call call = RetrofitUtils.createApi(MyApiServer.class).getProductList("620014", StringUtils.getJsonToString(map));
 
         addCall(call);
@@ -394,19 +391,19 @@ public class ProductActivity extends AbsBaseActivity {
 
             @Override
             protected void onSuccess(List<ProductModel> data, String SucMessage) {
-                if(data == null)
+                if (data == null)
                     return;
 
 
                 mData.clear();
                 mData.addAll(data);
 
-                if (mData != null){
+                if (mData != null) {
                     getOrder();
                 }
 
                 mAdapter.notifyDataSetChanged();
-        }
+            }
 
             @Override
             protected void onFinish() {
@@ -435,12 +432,12 @@ public class ProductActivity extends AbsBaseActivity {
 
                 orderDetailModel = data;
 
-                if(data.getProduct() != null){
+                if (data.getProduct() != null) {
                     modelCode = data.getProduct().getModelCode();
 
-                    for (ProductModel model : mData){
+                    for (ProductModel model : mData) {
 
-                        if (TextUtils.equals(model.getCode(),modelCode)){
+                        if (TextUtils.equals(model.getCode(), modelCode)) {
 
                             model.setSelect(true);
 
@@ -465,20 +462,20 @@ public class ProductActivity extends AbsBaseActivity {
         });
     }
 
-    private void setProductView(OrderDetailModel data){
+    private void setProductView(OrderDetailModel data) {
 
-        if (data.getLevel().equals("1")){
+        if (data.getLevel().equals("1")) {
             mFooterView.txtPriceType.setText("售价");
-        }else {
+        } else {
             mFooterView.txtPriceType.setText("会员价");
         }
 
     }
 
-    private class ReqList{
+    private class ReqList {
         private String clothCode;
         private List<String> codeList;
-        private Map<String,String> map;
+        private Map<String, String> map;
         private String modelSpecsCode;
 
         public String getClothCode() {
@@ -514,7 +511,7 @@ public class ProductActivity extends AbsBaseActivity {
         }
     }
 
-    private void madePrice(){
+    private void madePrice() {
 
         List<ReqList> reqList = new ArrayList<>();
         for (ProductModel.ModelSpecsListBean bean : childList) {
@@ -527,13 +524,13 @@ public class ProductActivity extends AbsBaseActivity {
         }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("address",mFooterView.edtAddress.getText().toString().trim());
-        map.put("remark",mFooterView.edtRemark.getText().toString().trim());
-        map.put("quantity","1");
-        map.put("modelCode",modelCode);
-        map.put("orderCode",orderCode);
+        map.put("address", mFooterView.edtAddress.getText().toString().trim());
+        map.put("remark", mFooterView.edtRemark.getText().toString().trim());
+        map.put("quantity", "1");
+        map.put("modelCode", modelCode);
+        map.put("orderCode", orderCode);
 
-        map.put("reqList",reqList);
+        map.put("reqList", reqList);
         map.put("updater", SPUtilHelpr.getUserId());
         map.put("token", SPUtilHelpr.getUserToken());
 
@@ -547,7 +544,7 @@ public class ProductActivity extends AbsBaseActivity {
 
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
-                if (data.isSuccess()){
+                if (data.isSuccess()) {
                     showToast("定价成功,请等待用户支付");
                     finish();
                 }
@@ -558,7 +555,6 @@ public class ProductActivity extends AbsBaseActivity {
                 disMissLoading();
             }
         });
-
     }
 
     private boolean check() {
@@ -569,7 +565,7 @@ public class ProductActivity extends AbsBaseActivity {
             }
         }
 
-        Toast.makeText(this, "请选择产品", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "请选择定制产品", Toast.LENGTH_SHORT).show();
         return false;
 
     }

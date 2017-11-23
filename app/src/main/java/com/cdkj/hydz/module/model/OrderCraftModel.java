@@ -15,6 +15,15 @@ public class OrderCraftModel {
     private String code;
     private BigDecimal price;
     private String eventBusTag;
+    private String modelNum;
+
+    public String getModelNum() {
+        return modelNum;
+    }
+
+    public void setModelNum(String modelNum) {
+        this.modelNum = modelNum;
+    }
 
     public BigDecimal getPrice() {
         return price;

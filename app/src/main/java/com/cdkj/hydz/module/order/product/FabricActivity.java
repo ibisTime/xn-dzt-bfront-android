@@ -47,8 +47,8 @@ public class FabricActivity extends AbsBaseActivity {
 
     private String modelSpecsCode;
 
-    private List<FabricTypeModel> typeList;
-    private FabricTypeAdapter typeAdapter;
+//    private List<FabricTypeModel> typeList;
+//    private FabricTypeAdapter typeAdapter;
 
     // 面料
     private GridLayoutManager fabricManager;
@@ -94,25 +94,26 @@ public class FabricActivity extends AbsBaseActivity {
         initListView();
         initRecycleView();
 
-        getSystemParameter();
+        getProcess("");
+//        getSystemParameter();
     }
 
     private void initListView(){
-        typeList = new ArrayList<>();
-        typeAdapter = new FabricTypeAdapter(this,typeList);
-        mBinding.listType.setAdapter(typeAdapter);
+//        typeList = new ArrayList<>();
+//        typeAdapter = new FabricTypeAdapter(this,typeList);
+//        mBinding.listType.setAdapter(typeAdapter);
 
-        mBinding.listType.setOnItemClickListener((adapterView, view, i, l) -> {
-            for (FabricTypeModel model : typeList){
-                model.setSelect(false);
-            }
-
-            getProcess(typeList.get(i).getKey());
-
-            typeList.get(i).setSelect(true);
-            typeAdapter.notifyDataSetChanged();
-
-        });
+//        mBinding.listType.setOnItemClickListener((adapterView, view, i, l) -> {
+//            for (FabricTypeModel model : typeList){
+//                model.setSelect(false);
+//            }
+//
+//            getProcess(typeList.get(i).getKey());
+//
+//            typeList.get(i).setSelect(true);
+//            typeAdapter.notifyDataSetChanged();
+//
+//        });
     }
 
     private void initRecycleView() {
@@ -162,65 +163,68 @@ public class FabricActivity extends AbsBaseActivity {
 
     }
 
-    public void getSystemParameter() {
-
-        Map<String, String> map = new HashMap<>();
-
-        Call call = RetrofitUtils.createApi(MyApiServer.class).getUserParameterDetails("805908", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        showLoadingDialog();
-
-        call.enqueue(new BaseResponseModelCallBack<UserParameterModel>(this) {
-
-            @Override
-            protected void onSuccess(UserParameterModel data, String SucMessage) {
-                if (data != null){
-
-                    if (data.getM_type() != null){
-
-                        Log.e("data.getM_type()",data.getM_type());
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(data.getM_type());
-                            Iterator it = jsonObject.keys();
-
-                            while (it.hasNext()){
-                                String key = (String) it.next();
-
-                                FabricTypeModel model = new FabricTypeModel();
-                                model.setKey(key);
-                                model.setValue(jsonObject.getString(key));
-
-                                typeList.add(model);
-
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        typeList.get(0).setSelect(true);
-                        typeAdapter.notifyDataSetChanged();
-
-                        getProcess(typeList.get(0).getKey());
-                    }
-
-                }else {
-                    showToast("页面错误，请关闭重试");
-                }
-
-
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
+    /**
+     * 获取面料编号
+     */
+//    public void getSystemParameter() {
+//
+//        Map<String, String> map = new HashMap<>();
+//
+//        Call call = RetrofitUtils.createApi(MyApiServer.class).getUserParameterDetails("805908", StringUtils.getJsonToString(map));
+//
+//        addCall(call);
+//
+//        showLoadingDialog();
+//
+//        call.enqueue(new BaseResponseModelCallBack<UserParameterModel>(this) {
+//
+//            @Override
+//            protected void onSuccess(UserParameterModel data, String SucMessage) {
+//                if (data != null){
+//
+//                    if (data.getM_type() != null){
+//
+//                        Log.e("data.getM_type()",data.getM_type());
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data.getM_type());
+//                            Iterator it = jsonObject.keys();
+//
+//                            while (it.hasNext()){
+//                                String key = (String) it.next();
+//
+//                                FabricTypeModel model = new FabricTypeModel();
+//                                model.setKey(key);
+//                                model.setValue(jsonObject.getString(key));
+//
+//                                typeList.add(model);
+//
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                        typeList.get(0).setSelect(true);
+//                        typeAdapter.notifyDataSetChanged();
+//
+//                        getProcess(typeList.get(0).getKey());
+//                    }
+//
+//                }else {
+//                    showToast("页面错误，请关闭重试");
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            protected void onFinish() {
+//                disMissLoading();
+//            }
+//        });
+//    }
 
 
     /**
@@ -230,7 +234,7 @@ public class FabricActivity extends AbsBaseActivity {
 
         Map<String, String> map = new HashMap<>();
         map.put("status","1");
-        map.put("yarn",yarn);
+//        map.put("yarn",yarn);
         map.put("modelSpecsCode", modelSpecsCode);
 
         Call call = RetrofitUtils.createApi(MyApiServer.class).getMaterialList("620032", StringUtils.getJsonToString(map));
@@ -257,6 +261,7 @@ public class FabricActivity extends AbsBaseActivity {
                         model.setImg(bean.getPic());
                         model.setCode(bean.getCode());
                         model.setPrice(bean.getPrice());
+                        model.setModelNum(bean.getModelNum());
 
                         fabricData.add(model);
                     }

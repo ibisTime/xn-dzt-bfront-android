@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class OrderFabricAdapter extends RecyclerView.Adapter<OrderFabricAdapter.
 
         this.mData = data;
         this.mContext = (Activity) mContext;
-        Log.e("Adapter mData.size()",mData.size()+"");
+        Log.e("Adapter mData.size()", mData.size() + "");
     }
 
 
@@ -53,35 +54,41 @@ public class OrderFabricAdapter extends RecyclerView.Adapter<OrderFabricAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DisplayMetrics metric = new DisplayMetrics();
-        this.mContext.getWindowManager().getDefaultDisplay().getMetrics(metric);
-        screenWidth = metric.widthPixels - dp2px(mContext,140);
 
-        Log.e("screenWidth",screenWidth+"");
-        Log.e("metric.widthPixels",metric.widthPixels+"");
+        OrderCraftModel orderCraftModel = mData.get(position);
+        if (orderCraftModel == null) return;
 
-        ViewGroup.LayoutParams layoutParams = holder.layoutItem.getLayoutParams();
-        layoutParams.width = layoutParams.height = screenWidth / 3;
+//        DisplayMetrics metric = new DisplayMetrics();
+//        this.mContext.getWindowManager().getDefaultDisplay().getMetrics(metric);
+//        screenWidth = metric.widthPixels - dp2px(mContext, 140);
+//
+//        Log.e("screenWidth", screenWidth + "");
+//        Log.e("metric.widthPixels", metric.widthPixels + "");
+//
+//        ViewGroup.LayoutParams layoutParams = holder.layoutItem.getLayoutParams();
+//        layoutParams.width = layoutParams.height = screenWidth / 3;
+//
+//        Log.e("screenWidth / 3", (screenWidth / 3) + "");
+//        holder.layoutItem.setLayoutParams(layoutParams);
 
-        Log.e("screenWidth / 3",(screenWidth / 3)+"");
-        holder.layoutItem.setLayoutParams(layoutParams);
-
-        if (mData.get(position).isSelect()){
+        if (orderCraftModel.isSelect()) {
             holder.txtBorder.setBackgroundResource(R.drawable.border_order_blue);
-        }else {
+        } else {
             holder.txtBorder.setBackgroundResource(R.drawable.border_order_gray);
         }
-        ImgUtils.loadRoundImage(mContext, MyConfig.IMGURL+mData.get(position).getImg(), holder.imgItem);
+        ImgUtils.loadRoundImage(mContext, MyConfig.IMGURL + orderCraftModel.getImg(), holder.imgItem);
+
+        holder.txtCode.setText(orderCraftModel.getModelNum());
 
         holder.txtBorder.setOnClickListener(view -> {
-            if(!mData.get(position).isSelect()){
-                for (OrderCraftModel model : mData){
+            if (!orderCraftModel.isSelect()) {
+                for (OrderCraftModel model : mData) {
                     model.setSelect(false);
                 }
 
-                mData.get(position).setSelect(true);
+                orderCraftModel.setSelect(true);
 
-                OrderCraftModel model = mData.get(position);
+                OrderCraftModel model = orderCraftModel;
                 model.setEventBusTag(EventTags.FABRIC);
                 EventBus.getDefault().post(model);
 
@@ -96,7 +103,7 @@ public class OrderFabricAdapter extends RecyclerView.Adapter<OrderFabricAdapter.
     @Override
     public int getItemCount() {
 
-        Log.e("mData.size()",mData.size()+"");
+        Log.e("mData.size()", mData.size() + "");
         return mData == null ? 0 : mData.size();
 
     }
@@ -104,13 +111,15 @@ public class OrderFabricAdapter extends RecyclerView.Adapter<OrderFabricAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtBorder;
+        TextView txtCode;
         ImageView imgItem;
-        RelativeLayout layoutItem;
+        FrameLayout layoutItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imgItem = itemView.findViewById(R.id.img_item);
             txtBorder = itemView.findViewById(R.id.txt_border);
+            txtCode = itemView.findViewById(R.id.txt_code);
             layoutItem = itemView.findViewById(R.id.layout_item);
         }
     }
