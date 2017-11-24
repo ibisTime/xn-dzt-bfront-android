@@ -75,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         clearCall();
 
-        if (mSubscription != null){
+        if (mSubscription != null) {
             mSubscription.dispose();
             mSubscription.clear();
         }
@@ -102,8 +102,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示dialog
      */
     public void showLoadingDialog() {
-        if(loadingDialog==null){
-            loadingDialog=new LoadingDialog(this);
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(this);
         }
         if (loadingDialog != null && !loadingDialog.isShowing()) {
             loadingDialog.showDialog();
@@ -187,9 +187,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 隐藏键盘
      */
     public void hideKeyboard(View v) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        try {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        } catch (Exception e) {
 
+        }
     }
 
     /**
@@ -224,6 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 能否通过 EventBUS事件结束
+     *
      * @return
      */
     protected boolean canEvenFinish() {

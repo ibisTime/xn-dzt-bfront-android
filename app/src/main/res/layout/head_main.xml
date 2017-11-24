@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:background="@color/gray_f8f8f8"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_f8f8f8"
+        android:orientation="vertical">
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
-            app:image_scale_type="fit_xy"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="180dp"
+            android:background="@color/white"
+            app:image_scale_type="fit_xy" />
 
         <RelativeLayout
-            android:layout_marginTop="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="17dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:text="客户消息"
-                android:textSize="14sp"
-                android:textColor="@color/black_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="客户消息"
+                android:textColor="@color/black_title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txt_all_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="查看全部"
-                android:textSize="12sp"
                 android:textColor="@color/gray_b0b0b0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -65,7 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:textColor="@color/gray_333333"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="手动阀手动阀手动阀" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,38 +114,38 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_marginTop="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:text="订单消息"
-                android:textSize="14sp"
-                android:textColor="@color/black_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="订单消息"
+                android:textColor="@color/black_title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txt_all_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="查看全部"
-                android:textSize="12sp"
                 android:textColor="@color/gray_b0b0b0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
         <View
-            android:background="@color/gray_b0b0b0"
-            android:layout_marginTop="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_marginTop="14dp"
+            android:background="@color/gray_b0b0b0" />
 
     </LinearLayout>
 </layout>

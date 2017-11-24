@@ -8,8 +8,8 @@ android {
         applicationId "com.cdkj.hydz"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 2
-        versionName "2.0.1"
+        versionCode 3
+        versionName "2.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -43,7 +43,7 @@ dependencies {
     compile project(':cdcommon')
 
     // Banner
-    compile 'com.youth.banner:banner:1.4.5'
+    compile 'com.youth.banner:banner:1.4.10'
     //路由
     compile 'com.alibaba:arouter-api:1.2.2'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.3'

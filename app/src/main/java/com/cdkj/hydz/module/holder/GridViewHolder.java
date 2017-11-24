@@ -30,8 +30,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
     Activity mActivity;
 
-    private int craftPosition;
-    private int colorPosition;
+    private int confirmPosition;
 
     private TextView txtEdit;
     private TextView txtConfirm;
@@ -78,7 +77,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
     public void refreshData(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
         super.refreshData(list, position);
         productCategoryList = list;
-
+        confirmPosition = position;
         if (list.get(position).getKind().equals("4") || list.get(position).getKind().equals("1")) {
 
             for (ProductCraftModel.ProductCategoryListBean bean : list) {
@@ -101,81 +100,91 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
         txtCraftName.setText(list.get(position).getDvalue());
         txtCraftValue.setText("");
 
-        // 设置已选的默认值
-        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
-
-            if (bean.isSelect()) {
-                txtCraftValue.setText(bean.getName()
-                        + "("
-                        + MoneyUtils.showPriceWithUnit(bean.getPrice())
-                        + ")");
-            }
-        }
-
         //每行显示3个，水平显示
         recyclerCraft.setLayoutManager(new GridLayoutManager(mActivity, ONE_LINE_SHOW_NUMBER, LinearLayoutManager.VERTICAL, false));
         //设置Adapter
         GridAdapter gradapter = new GridAdapter(list.get(position).getCraftList(), position);
         recyclerCraft.setAdapter(gradapter);
-        gradapter.setDefluteValue();
+
+        // 设置已选的默认值
+        if (checkIsSelect(list, position)) {
+            gradapter.setSelectValue();
+        } else {
+            gradapter.setDefluteValue();
+        }
+
 
         txtEdit.setOnClickListener(view -> {
             txtEdit.setVisibility(View.GONE);
-            layoutBtn.setVisibility(View.VISIBLE);
+//            layoutBtn.setVisibility(View.VISIBLE);
             recyclerCraft.setVisibility(View.VISIBLE);
         });
 
-        txtConfirm.setOnClickListener(view -> {
-            if (check(list, position)) {
-                txtEdit.setVisibility(View.VISIBLE);
-                layoutBtn.setVisibility(View.GONE);
-                recyclerCraft.setVisibility(View.GONE);
-
-                list.get(position).getCraftList().get(craftPosition).setSelect(true);
-
-            }
-
-        });
+//        txtConfirm.setOnClickListener(view -> {
+//            if (check(list, position)) {
+//                txtEdit.setVisibility(View.VISIBLE);
+//                layoutBtn.setVisibility(View.GONE);
+//                recyclerCraft.setVisibility(View.GONE);
+//            }
+//
+//        });
 
         // 是否有颜色需要选择
         if (list.get(position).getColorPcList().size() > 0)
             initColorRecycle(list, position);
     }
 
+
+    private boolean checkIsSelect(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
+        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
+            if (bean.isSelect()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void initColorRecycle(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
 
         txtColorName.setText(list.get(position).getColorPcList().get(0).getDvalue());
-
-        // 设置已选的默认值
-        for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : list.get(position).getColorPcList().get(0).getColorCraftList()) {
-            if (bean.isSelect()) {
-                txtColorValue.setText(bean.getName());
-            }
-        }
 
         //每行显示3个，水平显示
         recyclerColor.setLayoutManager(new GridLayoutManager(mActivity, ONE_LINE_SHOW_NUMBER, LinearLayoutManager.VERTICAL, false));
         //设置Adapter
         ColorAdapter colorAdapter = new ColorAdapter(list.get(position).getColorPcList().get(0).getColorCraftList());
         recyclerColor.setAdapter(colorAdapter);
-        colorAdapter.setDefluteValue();
+
+        // 设置已选的默认值 否则用后台默认值
+        if (setIsColoSelect(list, position)) {
+            colorAdapter.setSelectValue();
+        } else {
+            colorAdapter.setDefluteValue();
+        }
 
         txtColorEdit.setOnClickListener(view -> {
             txtColorEdit.setVisibility(View.GONE);
-            layoutColorBtn.setVisibility(View.VISIBLE);
+//            layoutColorBtn.setVisibility(View.VISIBLE);
             recyclerColor.setVisibility(View.VISIBLE);
         });
 
-        txtColorConfirm.setOnClickListener(view -> {
-            if (checkColor(list, position)) {
-                txtColorEdit.setVisibility(View.VISIBLE);
-                layoutColorBtn.setVisibility(View.GONE);
-                recyclerColor.setVisibility(View.GONE);
+//        txtColorConfirm.setOnClickListener(view -> {
+//            if (checkColor(list, position)) {
+//                txtColorEdit.setVisibility(View.VISIBLE);
+//                layoutColorBtn.setVisibility(View.GONE);
+//                recyclerColor.setVisibility(View.GONE);
+//            }
+//
+//        });
 
+    }
+
+    private boolean setIsColoSelect(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
+        for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : list.get(position).getColorPcList().get(0).getColorCraftList()) {
+            if (bean.isSelect()) {
+                return true;
             }
-
-        });
-
+        }
+        return false;
     }
 
     private boolean check(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
@@ -235,39 +244,41 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
             holder.imgItem.setOnClickListener(view -> {
 
-                craftPosition = position;
-
                 for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
                     bean.setSelect(false);
                 }
-                craftList.get(position).setSelect(true);
 
                 setSelectValue(craftList.get(position));
 
-                if (craftList.get(position).getIsHit().equals("1")) {
-                    layoutColor.setVisibility(View.VISIBLE);
-                } else {
-                    layoutColor.setVisibility(View.GONE);
 
-                    if (productCategoryList.get(itemPosition).getColorPcList().size() > 0) {
-                        for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : productCategoryList.get(itemPosition).getColorPcList().get(0).getColorCraftList()) {
-                            bean.setSelect(false);
-                        }
-                        txtColorValue.setText("");
-                    }
+                this.notifyDataSetChanged();
 
-                }
-
-                notifyDataSetChanged();
+                //选择之后隐藏选项
+                txtEdit.setVisibility(View.VISIBLE);
+                recyclerCraft.setVisibility(View.GONE);
 
             });
         }
 
         private void setSelectValue(ProductCraftModel.ProductCategoryListBean.CraftListBean bean) {
+            bean.setSelect(true);
             txtCraftValue.setText(bean.getName()
                     + "("
                     + MoneyUtils.showPriceWithUnit(bean.getPrice())
                     + ")");
+            if (TextUtils.equals("1", bean.getIsHit())) {
+                layoutColor.setVisibility(View.VISIBLE);
+            } else {
+                layoutColor.setVisibility(View.GONE);
+
+                if (productCategoryList.get(itemPosition).getColorPcList().size() > 0) {
+                    for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean2 : productCategoryList.get(itemPosition).getColorPcList().get(0).getColorCraftList()) {
+                        bean2.setSelect(false);
+                    }
+                    txtColorValue.setText("");
+                }
+            }
+
         }
 
         public void setDefluteValue() {
@@ -276,7 +287,16 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
                 if (TextUtils.equals("1", bean.getIsDefault())) {
                     setSelectValue(bean);
-                    break;
+                } else {
+                    bean.setSelect(false);
+                }
+            }
+        }
+
+        public void setSelectValue() {
+            for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
+                if (bean.isSelect()) {
+                    setSelectValue(bean);
                 }
             }
         }
@@ -313,18 +333,21 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
             holder.txtName.setText(colorList.get(position).getName());
 
             holder.txtBorder.setOnClickListener(view -> {
-                if (!colorList.get(position).isSelect()) {
-                    for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : colorList) {
-                        bean.setSelect(false);
-                    }
-
-                    colorList.get(position).setSelect(true);
-
-                    setSelectValue(colorList.get(position));
-
-                    notifyDataSetChanged();
-
+//                if (!colorList.get(position).isSelect()) { //如果已经选择过就不用再选
+                for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : colorList) {
+                    bean.setSelect(false);
                 }
+
+
+                setSelectValue(colorList.get(position));
+
+                notifyDataSetChanged();
+
+                //选择之后隐藏 颜色选项
+                txtColorEdit.setVisibility(View.VISIBLE);
+                recyclerColor.setVisibility(View.GONE);
+
+//                }
 
             });
 
@@ -332,6 +355,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
         //设置默认值
         private void setSelectValue(ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean craftListBean) {
+            craftListBean.setSelect(true);
             txtColorValue.setText(craftListBean.getName()
                     + "("
                     + MoneyUtils.showPriceWithUnit(craftListBean.getPrice())
@@ -344,9 +368,18 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
                 if (TextUtils.equals("1", bean.getIsDefault())) {
                     setSelectValue(bean);
-                    break;
+                } else {
+                    bean.setSelect(false);
                 }
 
+            }
+        }
+
+        public void setSelectValue() {
+            for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean : colorList) {
+                if (bean.isSelect()) {
+                    setSelectValue(bean);
+                }
             }
         }
 

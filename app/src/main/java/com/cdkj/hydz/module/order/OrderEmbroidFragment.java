@@ -76,7 +76,7 @@ public class OrderEmbroidFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(savedInstanceState), R.layout.fragment_order_embroid, null, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_embroid, null, false);
 
         initEditView();
         initRecyclerView();

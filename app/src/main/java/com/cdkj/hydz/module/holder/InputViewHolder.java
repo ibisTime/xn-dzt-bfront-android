@@ -1,6 +1,7 @@
 package com.cdkj.hydz.module.holder;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by lei on 2017/9/14.
  */
 
-public class InputViewHolder extends BaseHolder<List<ProductCraftModel.ProductCategoryListBean>>{
+public class InputViewHolder extends BaseHolder<List<ProductCraftModel.ProductCategoryListBean>> {
 
     private EditText edtContent;
 
@@ -51,8 +52,8 @@ public class InputViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         txtCraftName.setText(data.get(position).getDvalue());
 
         // 设置已选的默认值
-        for (ProductCraftModel.ProductCategoryListBean.CraftListBean  bean : data.get(position).getCraftList()){
-            if(bean.isSelect()){
+        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : data.get(position).getCraftList()) {
+            if (bean.isSelect()) {
                 txtCraftValue.setText(bean.getName());
             }
         }
@@ -71,7 +72,7 @@ public class InputViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
             data.get(position).getCraftList().clear();
 
-            if (!edtContent.getText().toString().toString().equals("")){
+            if (!TextUtils.isEmpty(edtContent.getText().toString().toString())) {
                 txtCraftValue.setText(edtContent.getText().toString().toString());
                 ProductCraftModel.ProductCategoryListBean.CraftListBean bean = new ProductCraftModel.ProductCategoryListBean.CraftListBean();
                 bean.setSelect(true);

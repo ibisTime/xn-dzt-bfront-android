@@ -120,7 +120,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(savedInstanceState), R.layout.fragment_order_shirt, null, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_shirt, null, false);
 
         initEditView();
         initRecyclerView();
@@ -131,7 +131,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     private void initEditView() {
-        if(banInputSwitch){
+        if (banInputSwitch) {
             mBinding.txtStyleEdit.setVisibility(View.GONE);
             mBinding.txtFabricEdit.setVisibility(View.GONE);
             mBinding.txtParameterEdit.setVisibility(View.GONE);
@@ -140,7 +140,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
             mBinding.txtSleeveEdit.setVisibility(View.GONE);
             mBinding.txtPocketEdit.setVisibility(View.GONE);
             mBinding.txtDartedEdit.setVisibility(View.GONE);
-        }else {
+        } else {
             mBinding.txtStyleEdit.setVisibility(View.VISIBLE);
             mBinding.txtFabricEdit.setVisibility(View.VISIBLE);
             mBinding.txtParameterEdit.setVisibility(View.VISIBLE);
@@ -155,39 +155,39 @@ public class OrderShirtFragment extends BaseLazyFragment {
     private void initRecyclerView() {
         styleManager = new GridLayoutManager(mActivity, 3);
         styleAdapter = new OrderStyleAdapter(mActivity, styleData);
-        setRecyclerView(mBinding.recyclerShirtStyle,styleManager);
+        setRecyclerView(mBinding.recyclerShirtStyle, styleManager);
 
         fabricManager = new GridLayoutManager(mActivity, 3);
         fabricAdapter = new OrderFabricAdapter(mActivity, fabricData);
-        setRecyclerView(mBinding.recyclerShirtFabric,fabricManager);
+        setRecyclerView(mBinding.recyclerShirtFabric, fabricManager);
 
         parameterManager = new GridLayoutManager(mActivity, 3);
         parameterAdapter = new OrderParameterAdapter(mActivity, parameterData);
-        setRecyclerView(mBinding.recyclerShirtParameter,parameterManager);
+        setRecyclerView(mBinding.recyclerShirtParameter, parameterManager);
 
         closureManager = new GridLayoutManager(mActivity, 3);
         closureAdapter = new OrderClosureAdapter(mActivity, closureData);
-        setRecyclerView(mBinding.recyclerShirtClosure,closureManager);
+        setRecyclerView(mBinding.recyclerShirtClosure, closureManager);
 
         collarManager = new GridLayoutManager(mActivity, 3);
         collarAdapter = new OrderCollarAdapter(mActivity, collarData);
-        setRecyclerView(mBinding.recyclerShirtCollar,collarManager);
+        setRecyclerView(mBinding.recyclerShirtCollar, collarManager);
 
         sleeveManager = new GridLayoutManager(mActivity, 3);
         sleeveAdapter = new OrderSleeveAdapter(mActivity, sleeveData);
-        setRecyclerView(mBinding.recyclerShirtSleeve,sleeveManager);
+        setRecyclerView(mBinding.recyclerShirtSleeve, sleeveManager);
 
         pocketManager = new GridLayoutManager(mActivity, 3);
         pocketAdapter = new OrderPocketAdapter(mActivity, pocketData);
-        setRecyclerView(mBinding.recyclerShirtPocket,pocketManager);
+        setRecyclerView(mBinding.recyclerShirtPocket, pocketManager);
 
         dartedManager = new GridLayoutManager(mActivity, 3);
         dartedAdapter = new OrderDartedAdapter(mActivity, dartedData);
-        setRecyclerView(mBinding.recyclerShirtDarted,dartedManager);
+        setRecyclerView(mBinding.recyclerShirtDarted, dartedManager);
 
     }
 
-    private void setRecyclerView(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager){
+    private void setRecyclerView(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
@@ -196,10 +196,10 @@ public class OrderShirtFragment extends BaseLazyFragment {
 
     private void initListener() {
         mBinding.txtStyleEdit.setOnClickListener(view -> { // 着装风格
-            setEditShow(mBinding.txtStyleEdit, mBinding.layoutStyleBtn, mBinding.recyclerShirtStyle,styleAdapter);
+            setEditShow(mBinding.txtStyleEdit, mBinding.layoutStyleBtn, mBinding.recyclerShirtStyle, styleAdapter);
         });
         mBinding.txtStyleConfirm.setOnClickListener(view -> { // 着装风格 确定
-            if (check(STYLE)){
+            if (check(STYLE)) {
                 setEditHide(mBinding.txtStyleEdit, mBinding.layoutStyleBtn, mBinding.recyclerShirtStyle);
 
                 packStyleData();
@@ -210,10 +210,10 @@ public class OrderShirtFragment extends BaseLazyFragment {
 //        });
 
         mBinding.txtFabricEdit.setOnClickListener(view -> { // 面料
-            setEditShow(mBinding.txtFabricEdit, mBinding.layoutFabricBtn, mBinding.recyclerShirtFabric,fabricAdapter);
+            setEditShow(mBinding.txtFabricEdit, mBinding.layoutFabricBtn, mBinding.recyclerShirtFabric, fabricAdapter);
         });
         mBinding.txtFabricConfirm.setOnClickListener(view -> { // 面料 确定
-            if (check(FABRIC)){
+            if (check(FABRIC)) {
                 setEditHide(mBinding.txtFabricEdit, mBinding.layoutFabricBtn, mBinding.recyclerShirtFabric);
 
                 packFabricData();
@@ -224,10 +224,10 @@ public class OrderShirtFragment extends BaseLazyFragment {
 //        });
 
         mBinding.txtParameterEdit.setOnClickListener(view -> { // 规格
-            setEditShow(mBinding.txtParameterEdit, mBinding.layoutParameterBtn, mBinding.recyclerShirtParameter,parameterAdapter);
+            setEditShow(mBinding.txtParameterEdit, mBinding.layoutParameterBtn, mBinding.recyclerShirtParameter, parameterAdapter);
         });
         mBinding.txtParameterConfirm.setOnClickListener(view -> { // 规格 确定
-            if (check(PARAMETER)){
+            if (check(PARAMETER)) {
                 setEditHide(mBinding.txtParameterEdit, mBinding.layoutParameterBtn, mBinding.recyclerShirtParameter);
 
                 packParameterData();
@@ -241,7 +241,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
             setEditShow(mBinding.txtClosureEdit, mBinding.layoutClosureBtn, mBinding.recyclerShirtClosure, closureAdapter);
         });
         mBinding.txtClosureConfirm.setOnClickListener(view -> { // 门襟 确定
-            if (check(CLOSURE)){
+            if (check(CLOSURE)) {
                 setEditHide(mBinding.txtClosureEdit, mBinding.layoutClosureBtn, mBinding.recyclerShirtClosure);
 
                 packClosureData();
@@ -256,7 +256,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
         });
         mBinding.txtCollarConfirm.setOnClickListener(view -> { // 领型 确定
             setEditHide(mBinding.txtCollarEdit, mBinding.layoutCollarBtn, mBinding.recyclerShirtCollar);
-            if (check(COLLAR)){
+            if (check(COLLAR)) {
 
                 packCollarData();
             }
@@ -269,7 +269,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
             setEditShow(mBinding.txtSleeveEdit, mBinding.layoutSleeveBtn, mBinding.recyclerShirtSleeve, sleeveAdapter);
         });
         mBinding.txtSleeveConfirm.setOnClickListener(view -> { // 袖型 确定
-            if (check(SLEEVE)){
+            if (check(SLEEVE)) {
                 setEditHide(mBinding.txtSleeveEdit, mBinding.layoutSleeveBtn, mBinding.recyclerShirtSleeve);
 
                 packSleeveData();
@@ -284,7 +284,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
         });
         mBinding.txtPocketConfirm.setOnClickListener(view -> { // 口袋 确定
             setEditHide(mBinding.txtPocketEdit, mBinding.layoutPocketBtn, mBinding.recyclerShirtPocket);
-            if (check(POCKET)){
+            if (check(POCKET)) {
 
                 packPocketData();
             }
@@ -297,7 +297,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
             setEditShow(mBinding.txtDartedEdit, mBinding.layoutDartedBtn, mBinding.recyclerShirtDarted, dartedAdapter);
         });
         mBinding.txtDartedConfirm.setOnClickListener(view -> { // 袖型 确定
-            if (check(DARTED)){
+            if (check(DARTED)) {
                 setEditHide(mBinding.txtDartedEdit, mBinding.layoutDartedBtn, mBinding.recyclerShirtDarted);
 
                 packDartedData();
@@ -308,7 +308,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
 //        });
     }
 
-    private void setEditShow(View vEdt, View vBtn, RecyclerView recyclerView, RecyclerView.Adapter adapter){
+    private void setEditShow(View vEdt, View vBtn, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         vEdt.setVisibility(View.GONE);
         vBtn.setVisibility(View.VISIBLE);
 
@@ -316,7 +316,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
         recyclerView.setVisibility(View.VISIBLE);
     }
 
-    private void setEditHide(View vEdt, View vBtn, View vRecycler){
+    private void setEditHide(View vEdt, View vBtn, View vRecycler) {
         vEdt.setVisibility(View.VISIBLE);
         vBtn.setVisibility(View.GONE);
         vRecycler.setVisibility(View.GONE);
@@ -328,7 +328,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
     public void getProcess() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("status","1");
+        map.put("status", "1");
         map.put("modelCode", SPUtilHelpr.getModelCode());
 
         Call call = RetrofitUtils.createApi(MyApiServer.class).getMaterialList("620032", StringUtils.getJsonToString(map));
@@ -343,7 +343,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
             protected void onSuccess(List<OrderMaterialModel> data, String SucMessage) {
                 if (data == null)
                     return;
-                for (OrderMaterialModel bean : data){
+                for (OrderMaterialModel bean : data) {
 
                     OrderCraftModel model = new OrderCraftModel();
                     model.setSelect(false);
@@ -379,11 +379,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setStyleView(OrderStyleModel model){
+    public void setStyleView(OrderStyleModel model) {
         String name = "";
-        if (OrderHelper.isShowCraftPrice){
-            name = model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")";
-        }else {
+        if (OrderHelper.isShowCraftPrice) {
+            name = model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")";
+        } else {
             name = model.getName();
         }
 
@@ -391,15 +391,15 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setCraftView(OrderCraftModel model){
+    public void setCraftView(OrderCraftModel model) {
         String name = "";
-        if (OrderHelper.isShowCraftPrice){
-            name = model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")";
-        }else {
+        if (OrderHelper.isShowCraftPrice) {
+            name = model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")";
+        } else {
             name = model.getName();
         }
 
-        switch (model.getEventBusTag()){
+        switch (model.getEventBusTag()) {
             case EventTags.FABRIC:
                 mBinding.txtShirtFabric.setText(name);
                 break;
@@ -432,8 +432,8 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setSwitch(SwitchModel model){
-        if(model.getEventTag().equals(EventTags.SWITCHALL) || model.getEventTag().equals(EventTags.SWITCHHPLUS)){
+    public void setSwitch(SwitchModel model) {
+        if (model.getEventTag().equals(EventTags.SWITCHALL) || model.getEventTag().equals(EventTags.SWITCHHPLUS)) {
             banInputSwitch = model.isSwitchs();
             initEditView();
         }
@@ -441,9 +441,9 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setData(String tag){
-        if(tag.equals(EventTags.ORDERDATAOK)){
-            if(orderProcessModel != null){
+    public void setData(String tag) {
+        if (tag.equals(EventTags.ORDERDATAOK)) {
+            if (orderProcessModel != null) {
                 initStyle();
                 initParameter();
                 initClosure();
@@ -458,19 +458,19 @@ public class OrderShirtFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void setProductData(String tag){
-        if(tag.equals(PRODUCTDATA)){
-            if(hPlusCraftModel != null){
+    public void setProductData(String tag) {
+        if (tag.equals(PRODUCTDATA)) {
+            if (hPlusCraftModel != null) {
                 setProductData();
             }
         }
     }
 
-    private void initStyle(){
+    private void initStyle() {
         if (orderProcessModel.get_$107() == null)
             return;
 
-        for (OrderProcessModel._$107Bean bean : orderProcessModel.get_$107()){
+        for (OrderProcessModel._$107Bean bean : orderProcessModel.get_$107()) {
             OrderStyleModel model = new OrderStyleModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -485,11 +485,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         styleAdapter.notifyDataSetChanged();
     }
 
-    private void initParameter(){
+    private void initParameter() {
         if (orderProcessModel.get_$101() == null)
             return;
 
-        for (OrderProcessModel._$101Bean bean : orderProcessModel.get_$101()){
+        for (OrderProcessModel._$101Bean bean : orderProcessModel.get_$101()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -505,11 +505,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         parameterAdapter.notifyDataSetChanged();
     }
 
-    private void initClosure(){
+    private void initClosure() {
         if (orderProcessModel.get_$105() == null)
             return;
 
-        for (OrderProcessModel._$105Bean bean : orderProcessModel.get_$105()){
+        for (OrderProcessModel._$105Bean bean : orderProcessModel.get_$105()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -525,11 +525,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         closureAdapter.notifyDataSetChanged();
     }
 
-    private void initCollar(){
+    private void initCollar() {
         if (orderProcessModel.get_$103() == null)
             return;
 
-        for (OrderProcessModel._$103Bean bean : orderProcessModel.get_$103()){
+        for (OrderProcessModel._$103Bean bean : orderProcessModel.get_$103()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -545,11 +545,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         collarAdapter.notifyDataSetChanged();
     }
 
-    private void initSleeve(){
+    private void initSleeve() {
         if (orderProcessModel.get_$104() == null)
             return;
 
-        for (OrderProcessModel._$104Bean bean : orderProcessModel.get_$104()){
+        for (OrderProcessModel._$104Bean bean : orderProcessModel.get_$104()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -565,11 +565,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         sleeveAdapter.notifyDataSetChanged();
     }
 
-    private void initPocket(){
+    private void initPocket() {
         if (orderProcessModel.get_$108() == null)
             return;
 
-        for (OrderProcessModel._$108Bean bean : orderProcessModel.get_$108()){
+        for (OrderProcessModel._$108Bean bean : orderProcessModel.get_$108()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -585,11 +585,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         pocketAdapter.notifyDataSetChanged();
     }
 
-    private void initDarted(){
+    private void initDarted() {
         if (orderProcessModel.get_$106() == null)
             return;
 
-        for (OrderProcessModel._$106Bean bean : orderProcessModel.get_$106()){
+        for (OrderProcessModel._$106Bean bean : orderProcessModel.get_$106()) {
             OrderCraftModel model = new OrderCraftModel();
             model.setSelect(false);
             model.setKey(bean.getType());
@@ -755,12 +755,12 @@ public class OrderShirtFragment extends BaseLazyFragment {
 //
 //    }
 
-    private void setProductData(){
+    private void setProductData() {
 
 
         try {
             for (String value : hPlusCraftModel.getCodeList()) {
-                Log.e("value",value);
+                Log.e("value", value);
 
                 for (OrderStyleModel model : styleData) {
 
@@ -768,7 +768,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
 
                         model.setSelect(true);
 
-                        mBinding.txtShirtStyle.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtStyle.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packStyleData();
                     }
@@ -780,7 +780,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtFabric.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtFabric.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packFabricData();
                     }
@@ -792,12 +792,12 @@ public class OrderShirtFragment extends BaseLazyFragment {
                 for (OrderCraftModel model : parameterData) {
                     if (TextUtils.equals(model.getCode(), value)) {
 
-                        Log.e("value",value);
-                        Log.e("model.getCode()",model.getCode());
+                        Log.e("value", value);
+                        Log.e("model.getCode()", model.getCode());
 
                         model.setSelect(true);
 
-                        mBinding.txtShirtParameter.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtParameter.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packParameterData();
                     }
@@ -808,7 +808,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtClosure.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtClosure.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packClosureData();
                     }
@@ -819,7 +819,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtCollar.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtCollar.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packCollarData();
                     }
@@ -830,7 +830,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtSleeve.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtSleeve.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packSleeveData();
                     }
@@ -841,7 +841,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtPocket.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtPocket.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packPocketData();
                     }
@@ -853,7 +853,7 @@ public class OrderShirtFragment extends BaseLazyFragment {
                     if (TextUtils.equals(model.getCode(), value)) {
                         model.setSelect(true);
 
-                        mBinding.txtShirtDarted.setText(model.getName() + "("+ MoneyUtils.showPriceWithUnit(model.getPrice())+")");
+                        mBinding.txtShirtDarted.setText(model.getName() + "(" + MoneyUtils.showPriceWithUnit(model.getPrice()) + ")");
 
                         packDartedData();
                     }
@@ -867,11 +867,11 @@ public class OrderShirtFragment extends BaseLazyFragment {
         }
     }
 
-    private boolean check(String tag){
+    private boolean check(String tag) {
 
-        if(TextUtils.equals(tag, STYLE)){
-            for(OrderStyleModel model : styleData){
-                if(model.isSelect()){
+        if (TextUtils.equals(tag, STYLE)) {
+            for (OrderStyleModel model : styleData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
@@ -879,63 +879,63 @@ public class OrderShirtFragment extends BaseLazyFragment {
             Toast.makeText(mActivity, "请选择着装风格", Toast.LENGTH_SHORT).show();
             return false;
 
-        } else if(TextUtils.equals(tag, FABRIC)){
-            for(OrderCraftModel model : fabricData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, FABRIC)) {
+            for (OrderCraftModel model : fabricData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择面料", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, PARAMETER)){
-            for(OrderCraftModel model : parameterData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, PARAMETER)) {
+            for (OrderCraftModel model : parameterData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择规格", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, CLOSURE)){
-            for(OrderCraftModel model : closureData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, CLOSURE)) {
+            for (OrderCraftModel model : closureData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择门襟", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, COLLAR)){
-            for(OrderCraftModel model : collarData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, COLLAR)) {
+            for (OrderCraftModel model : collarData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择领型", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, SLEEVE)){
-            for(OrderCraftModel model : sleeveData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, SLEEVE)) {
+            for (OrderCraftModel model : sleeveData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择袖型", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, POCKET)){
-            for(OrderCraftModel model : pocketData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, POCKET)) {
+            for (OrderCraftModel model : pocketData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
 
             Toast.makeText(mActivity, "请选择口袋", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(TextUtils.equals(tag, DARTED)){
-            for(OrderCraftModel model : dartedData){
-                if(model.isSelect()){
+        } else if (TextUtils.equals(tag, DARTED)) {
+            for (OrderCraftModel model : dartedData) {
+                if (model.isSelect()) {
                     return true;
                 }
             }
@@ -948,12 +948,12 @@ public class OrderShirtFragment extends BaseLazyFragment {
         return false;
     }
 
-    private void packStyleData(){
+    private void packStyleData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(STYLE);
 
-        for (OrderStyleModel model : styleData){
-            if (model.isSelect()){
+        for (OrderStyleModel model : styleData) {
+            if (model.isSelect()) {
                 OrderCommitModel.CommitBean bean = new OrderCommitModel.CommitBean();
                 bean.setKey(model.getKey());
                 bean.setValue(model.getCode());
@@ -966,85 +966,85 @@ public class OrderShirtFragment extends BaseLazyFragment {
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packFabricData(){
+    private void packFabricData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(FABRIC);
 
-        for (OrderCraftModel model : fabricData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : fabricData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packParameterData(){
+    private void packParameterData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(PARAMETER);
 
-        for (OrderCraftModel model : parameterData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : parameterData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packClosureData(){
+    private void packClosureData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(CLOSURE);
 
-        for (OrderCraftModel model : closureData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : closureData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packCollarData(){
+    private void packCollarData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(COLLAR);
 
-        for (OrderCraftModel model : collarData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : collarData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packSleeveData(){
+    private void packSleeveData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(SLEEVE);
 
-        for (OrderCraftModel model : sleeveData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : sleeveData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packPocketData(){
+    private void packPocketData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(POCKET);
 
-        for (OrderCraftModel model : pocketData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : pocketData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void packDartedData(){
+    private void packDartedData() {
         OrderCommitModel commitModel = new OrderCommitModel();
         commitModel.setEventTag(DARTED);
 
-        for (OrderCraftModel model : dartedData){
-            addDataTo(model,commitModel);
+        for (OrderCraftModel model : dartedData) {
+            addDataTo(model, commitModel);
         }
 
         EventBus.getDefault().post(commitModel);
     }
 
-    private void addDataTo(OrderCraftModel model,OrderCommitModel commitModel){
-        if (model.isSelect()){
+    private void addDataTo(OrderCraftModel model, OrderCommitModel commitModel) {
+        if (model.isSelect()) {
             OrderCommitModel.CommitBean bean = new OrderCommitModel.CommitBean();
             bean.setKey(model.getKey());
             bean.setValue(model.getCode());

@@ -113,11 +113,11 @@ public class ProductActivity extends AbsBaseActivity {
             mHerderView.recyclerProduct.setVisibility(View.VISIBLE);
 
         });
-        mHerderView.txtProductConfirm.setOnClickListener(view -> {
-            if (check()) {
-                productConfirm();
-            }
-        });
+//        mHerderView.txtProductConfirm.setOnClickListener(view -> {
+//            if (check()) {
+//                productConfirm();
+//            }
+//        });
 
 
         mFooterView.txtAddressEdit.setOnClickListener(view -> {
@@ -135,6 +135,8 @@ public class ProductActivity extends AbsBaseActivity {
                 mFooterView.layoutAddress.setVisibility(View.GONE);
 
                 mFooterView.txtAddress.setText(mFooterView.edtAddress.getText().toString());
+
+                hideKeyboard(this);
             }
 
         });
@@ -154,6 +156,8 @@ public class ProductActivity extends AbsBaseActivity {
                 mFooterView.layoutRemark.setVisibility(View.GONE);
 
                 mFooterView.txtRemark.setText(mFooterView.edtRemark.getText().toString());
+
+                hideKeyboard(this);
             }
 
         });
@@ -163,16 +167,12 @@ public class ProductActivity extends AbsBaseActivity {
             for (ProductModel model : mData) {
 
                 if (model.isSelect()) {
-
                     if (checkCommit()) {// 定价
                         madePrice();
-                        return;
-                    } else {
-                        return;
                     }
-
-
+                    return;
                 }
+
             }
 
             showToast("请选择定制产品");
@@ -202,11 +202,10 @@ public class ProductActivity extends AbsBaseActivity {
                 showToast("请选择" + bean.getName() + "基础");
                 return false;
             }
-
-            if (bean.getCodeList() == null || bean.getCodeList().size() == 0) {
-                showToast("请选择" + bean.getName() + "工艺");
-                return false;
-            }
+//            if (bean.getCodeList() == null || bean.getCodeList().size() == 0) {
+//                showToast("请选择" + bean.getName() + "工艺");
+//                return false;
+//            }
 
         }
 
@@ -328,6 +327,11 @@ public class ProductActivity extends AbsBaseActivity {
     }
 
 
+    /**
+     * 接收选择产品
+     *
+     * @param model
+     */
     @Subscribe
     public void setView(ProductModel model) {
         if (model.getEventBusTag().equals(EventTags.PRODUCT)) {
@@ -361,9 +365,7 @@ public class ProductActivity extends AbsBaseActivity {
                     return;
 
                 fhyModel = data;
-
                 getProduct();
-
 
             }
 
@@ -531,8 +533,10 @@ public class ProductActivity extends AbsBaseActivity {
         map.put("orderCode", orderCode);
 
         map.put("reqList", reqList);
+
         map.put("updater", SPUtilHelpr.getUserId());
         map.put("token", SPUtilHelpr.getUserToken());
+
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("620203", StringUtils.getJsonToString(map));
 

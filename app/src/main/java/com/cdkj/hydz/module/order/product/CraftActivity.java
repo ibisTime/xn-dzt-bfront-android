@@ -57,6 +57,8 @@ public class CraftActivity extends AbsBaseActivity {
 
             if (check()){
                 packData();
+            }else{
+                showToast("请完成所有工艺选择");
             }
 
         });
@@ -87,7 +89,14 @@ public class CraftActivity extends AbsBaseActivity {
         adapter = new ProductCraftAdapter(this, list);
 
         //竖直排列、正向排序
-        mBinding.recyclerCraft.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
+        mBinding.recyclerCraft.setLayoutManager(linearLayoutManager);
         mBinding.recyclerCraft.setBackgroundResource(R.color.white);
         mBinding.recyclerCraft.setAdapter(adapter);
     }
@@ -129,15 +138,8 @@ public class CraftActivity extends AbsBaseActivity {
     @Subscribe
     public void update(String tag){
         if (tag.equals(EventTags.UPDATE)){
-            Log.e("tag",tag);
             for (int i = 0; i<list.size(); i++){
                 if (list.get(i).getKind().equals("4") || list.get(i).getKind().equals("1")){
-
-
-//                    Log.e("tag getKind()",list.get(i).getKind());
-//                    adapter.notifyItemChanged(i);
-//                    Log.e("tag getKind().p",i+"");
-
                     adapter.notifyDataSetChanged();
                 }
             }

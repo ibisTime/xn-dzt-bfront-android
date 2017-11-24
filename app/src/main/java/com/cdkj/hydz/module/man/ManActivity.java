@@ -105,7 +105,6 @@ public class ManActivity extends AbsBaseActivity {
                     showToast("页面错误，请关闭重试");
                 }
 
-
             }
 
             @Override

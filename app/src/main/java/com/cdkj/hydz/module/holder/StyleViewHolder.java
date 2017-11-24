@@ -26,7 +26,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
     private Activity mActivity;
 
-    private int craftPosition;
+//    private int craftPosition;
 
     private TextView txtEdit;
     private TextView txtConfirm;
@@ -56,37 +56,46 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
     public void refreshData(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
         txtCraftName.setText(list.get(position).getDvalue());
 
-        // 设置已选的默认值
-        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
-            if (bean.isSelect()) {
-                txtCraftValue.setText(bean.getName());
-            }
-        }
 
         //每行显示3个，水平显示
         recyclerCraft.setLayoutManager(new GridLayoutManager(mActivity, ONE_LINE_SHOW_NUMBER, LinearLayoutManager.VERTICAL, false));
         //设置Adapter
         GridAdapter gridAdapter = new GridAdapter(list.get(position).getCraftList(), position);
         recyclerCraft.setAdapter(gridAdapter);
-        gridAdapter.setDefluteValue();
+        // 设置已选的默认值
+        if (checkIsSelect(list, position)) {
+            gridAdapter.setSelectValue();
+        } else {
+            gridAdapter.setDefluteValue();
+        }
+
 
         txtEdit.setOnClickListener(view -> {
             txtEdit.setVisibility(View.GONE);
-            layoutBtn.setVisibility(View.VISIBLE);
+//            layoutBtn.setVisibility(View.VISIBLE);
             recyclerCraft.setVisibility(View.VISIBLE);
         });
 
-        txtConfirm.setOnClickListener(view -> {
+//        txtConfirm.setOnClickListener(view -> {
 //            if (check(list, position)) {
 //                txtEdit.setVisibility(View.VISIBLE);
 //                layoutBtn.setVisibility(View.GONE);
 //                recyclerCraft.setVisibility(View.GONE);
 //
-//                list.get(position).getCraftList().get(craftPosition).setSelect(true);
+////                list.get(position).getCraftList().get(craftPosition).setSelect(true);
 //
 //            }
+//
+//        });
+    }
 
-        });
+    private boolean checkIsSelect(List<ProductCraftModel.ProductCategoryListBean> list, int position) {
+        for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : list.get(position).getCraftList()) {
+            if (bean.isSelect()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class GridAdapter extends RecyclerView.Adapter<ItemViewHolder> {
@@ -119,22 +128,24 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
             holder.txtName.setText(craftList.get(position).getName());
 
             holder.txtBorder.setOnClickListener(view -> {
-                if (!craftList.get(position).isSelect()) {
+//                if (!craftList.get(position).isSelect()) { //如果已经选择过就不在选择
 
-                    craftPosition = position;
+                for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
+                    bean.setSelect(false);
+                }
 
-                    for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
-                        bean.setSelect(false);
-                    }
-                    craftList.get(position).setSelect(true);
-
-                    setSelectValue(craftList.get(position));
+                setSelectValue(craftList.get(position));
 
 //                    holder.txtBorder.setBackgroundResource(R.drawable.corner_order_blue);
 //                    holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.white));
 
-                    notifyDataSetChanged();
-                }
+                notifyDataSetChanged();
+
+                //选择过后直接隐藏布局
+                txtEdit.setVisibility(View.VISIBLE);
+//                    layoutBtn.setVisibility(View.GONE);
+                recyclerCraft.setVisibility(View.GONE);
+//                }
 
 
             });
@@ -142,6 +153,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
         }
 
         private void setSelectValue(ProductCraftModel.ProductCategoryListBean.CraftListBean bean) {
+            bean.setSelect(true);
             txtCraftValue.setText(bean.getName()
                     + "("
                     + MoneyUtils.showPriceWithUnit(bean.getPrice())
@@ -154,7 +166,16 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
                 if (TextUtils.equals("1", bean.getIsDefault())) {
                     setSelectValue(bean);
-                    break;
+                } else {
+                    bean.setSelect(false);
+                }
+            }
+        }
+
+        public void setSelectValue() {
+            for (ProductCraftModel.ProductCategoryListBean.CraftListBean bean : craftList) {
+                if (bean.isSelect()) {
+                    setSelectValue(bean);
                 }
             }
         }

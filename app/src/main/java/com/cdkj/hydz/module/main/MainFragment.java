@@ -1,6 +1,7 @@
 package com.cdkj.hydz.module.main;
 
 import android.databinding.DataBindingUtil;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.EventTags;
@@ -76,10 +77,11 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
         setTopTitleViewColor(R.color.black);
         setTopTitle(getString(R.string.app_name));
 
-        mHerderView= DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.head_main, null, false);
+        mHerderView = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.head_main, null, false);
         mAdapter.setHeaderAndEmpty(true);
         mAdapter.addHeaderView(mHerderView.getRoot());
 
+        initBanner();
         getBanner();
         getNotice();
         getListData(pageIndex, limit, true);
@@ -88,10 +90,10 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
 
             OrderModel.ListBean bean = (OrderModel.ListBean) adapter.getItem(position);
 
-            if(bean.getStatus().equals("1")){
-                ProductActivity.open(mActivity,bean.getCode());
-            }else {
-                OrderActivity.open(mActivity, bean.getCode(), "", bean.getType(),false,null);
+            if (bean.getStatus().equals("1")) {
+                ProductActivity.open(mActivity, bean.getCode());
+            } else {
+                OrderActivity.open(mActivity, bean.getCode(), "", bean.getType(), false, null);
             }
 
         });
@@ -101,11 +103,11 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
         });
 
         mHerderView.layoutMessage.setOnClickListener(view -> {
-            if(notice!=null){
-                if (notice.getCommenter().equals(SPUtilHelpr.getUserId())){
-                    MessageActivity.open(mActivity,notice.getReceiver());
-                }else {
-                    MessageActivity.open(mActivity,notice.getCommenter());
+            if (notice != null) {
+                if (notice.getCommenter().equals(SPUtilHelpr.getUserId())) {
+                    MessageActivity.open(mActivity, notice.getReceiver());
+                } else {
+                    MessageActivity.open(mActivity, notice.getCommenter());
                 }
             }
 
@@ -132,8 +134,6 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
     @Override
     public void onResume() {
         super.onResume();
-
-        getBanner();
         getNotice();
         getListData(1, 10, true);
     }
@@ -210,7 +210,7 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
 
             @Override
             protected void onSuccess(List<BannerModel> data, String SucMessage) {
-                if (data != null){
+                if (data != null) {
                     bannerData = data;
                     banner.clear();
                     for (BannerModel model : data) {
@@ -218,7 +218,9 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
                     }
                 }
 
-                initBanner();
+                mHerderView.banner.setImages(banner);
+                mHerderView.banner.start();
+
             }
 
             @Override
@@ -230,14 +232,8 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
     }
 
     private void initBanner() {
-        if (banner == null) return;
-
-        //设置banner样式
-        mHerderView.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置图片加载器
         mHerderView.banner.setImageLoader(new BannerImageLoader());
-        //设置图片集合
-        mHerderView.banner.setImages(banner);
         //设置banner动画效果
         mHerderView.banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
@@ -252,17 +248,15 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
         mHerderView.banner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
-                if (bannerData.get(position-1).getUrl()!=null){
+                if (bannerData.get(position - 1).getUrl() != null) {
 
-                    if (bannerData.get(position-1).getUrl().indexOf("http") != -1){
-                        WebViewActivity.openURL(mActivity,bannerData.get(position-1).getName(),bannerData.get(position-1).getUrl());
+                    if (bannerData.get(position - 1).getUrl().indexOf("http") != -1) {
+                        WebViewActivity.openURL(mActivity, bannerData.get(position - 1).getName(), bannerData.get(position - 1).getUrl());
                     }
 
                 }
             }
         });
-        //banner设置方法全部调用完毕时最后调用
-        mHerderView.banner.start();
 
         // 设置在操作Banner时listView事件不触发
 //        mHerderView.banner.setOnPageChangeListener(new MyPageChangeListener());
@@ -288,8 +282,8 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
 
             @Override
             protected void onSuccess(NoticeModel data, String SucMessage) {
-                if (data.getList() != null){
-                    if (data.getList().size() > 0){
+                if (data.getList() != null) {
+                    if (data.getList().size() > 0) {
                         notice = data.getList().get(0);
                     }
                 }
@@ -308,15 +302,52 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
     private void setNotice() {
         if (notice == null) return;
 
-        mHerderView.txtMessage.setText("\u3000\u3000"+notice.getContent());
-        mHerderView.txtTime.setText(DateUtil.formatStringData(notice.getCommentDatetime(),DEFAULT_DATE_FMT));
+        mHerderView.txtMessage.setText("\u3000\u3000" + notice.getContent());
+        mHerderView.txtTime.setText(DateUtil.formatStringData(notice.getCommentDatetime(), DEFAULT_DATE_FMT));
 
-        if (notice.getCommenter().equals(SPUtilHelpr.getUserId())){
-            mHerderView.txtName.setText(notice.getReceiveName());
+        if (notice.getCommenter().equals(SPUtilHelpr.getUserId())) {
+            setTextName(notice.getReceiveName());
             mHerderView.txtPhone.setText(notice.getReceiveMobile());
-        }else {
-            mHerderView.txtName.setText(notice.getCommentName());
+        } else {
+            setTextName(notice.getCommentName());
             mHerderView.txtPhone.setText(notice.getCommentMobile());
         }
     }
+
+    /**
+     * 设置姓名显示不能超过5位数
+     *
+     * @param name
+     */
+    private void setTextName(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return;
+        }
+        if (name.length() > 6) {
+            name = name.substring(0, 5) + "...";
+        }
+
+        mHerderView.txtName.setText(name);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHerderView.banner.stopAutoPlay();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (mHerderView != null) {
+            mHerderView.banner.start();
+        }
+    }
+
+    @Override
+    protected void onInvisible() {
+        if (mHerderView != null) {
+            mHerderView.banner.stopAutoPlay();
+        }
+    }
+
 }

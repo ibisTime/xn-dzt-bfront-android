@@ -4,16 +4,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.utils.ScrollGridLayoutManager;
@@ -28,17 +24,12 @@ import com.cdkj.hydz.module.model.SwitchModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import static android.R.attr.key;
 import static com.cdkj.baselibrary.appmanager.EventTags.MEASURE;
 import static com.cdkj.hydz.module.order.helper.OrderHelper.manModel;
 import static com.cdkj.hydz.module.order.helper.OrderHelper.orderDeatilModel;
-import static com.cdkj.hydz.module.order.helper.OrderHelper.systemParameterModel;
 
 /**
  * Created by lei on 2017/8/23.
@@ -65,7 +56,7 @@ public class OrderMeasureFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(savedInstanceState), R.layout.fragment_order_measure, null, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_measure, null, false);
 
         initEditView();
         initRecyclerView();

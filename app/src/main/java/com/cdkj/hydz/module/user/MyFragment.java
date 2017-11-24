@@ -81,7 +81,7 @@ public class MyFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(savedInstanceState), R.layout.fragment_my, null, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my, null, false);
 
 
         initListener();
@@ -220,8 +220,8 @@ public class MyFragment extends BaseLazyFragment {
             @Override
             protected void onSuccess(List<AccountModel> data, String SucMessage) {
                 if (data != null) {
-                    for (AccountModel model : data){
-                        if(model.getCurrency().equals("CNY")){
+                    for (AccountModel model : data) {
+                        if (model.getCurrency().equals("CNY")) {
                             mBinding.txtAccount.setText(MoneyUtils.showPriceWithUnit(model.getAmount()));
                         }
                     }
@@ -313,11 +313,11 @@ public class MyFragment extends BaseLazyFragment {
                     JSONObject jsonObject = new JSONObject(userParameterModel.getLt_level());
                     Iterator it = jsonObject.keys();
 
-                    while (it.hasNext()){
+                    while (it.hasNext()) {
                         String key = (String) it.next();
 
-                        if (key.equals(mUserInfoMode.getLevel())){
-                            mBinding.txtLevel.setText("LV"+mUserInfoMode.getLevel());
+                        if (key.equals(mUserInfoMode.getLevel())) {
+                            mBinding.txtLevel.setText("LV" + mUserInfoMode.getLevel());
                             mBinding.txtLevelName.setText(jsonObject.getString(key));
                         }
 
@@ -360,7 +360,7 @@ public class MyFragment extends BaseLazyFragment {
             }
         });
 
-        String textContent = "http://m.he-shirts.com/?#/home?userReferee="+SPUtilHelpr.getUserId();
+        String textContent = "http://m.he-shirts.com/?#/home?userReferee=" + SPUtilHelpr.getUserId();
 
         Bitmap mBitmap = CodeUtils.createImage(textContent, 400, 400, null);
         qrCode.setImageBitmap(mBitmap);
