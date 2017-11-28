@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 public class BaseHolder<T> extends RecyclerView.ViewHolder {
 
-    public BaseHolder(Context context,int viewId, ViewGroup parent, int viewType) {
-        super(((LayoutInflater) parent.getContext().getSystemService(parent.getContext().LAYOUT_INFLATER_SERVICE)).inflate(viewId, parent,false));
+    public BaseHolder(Context context, int viewId, ViewGroup parent, int viewType) {
+        super(((LayoutInflater) parent.getContext().getSystemService(parent.getContext().LAYOUT_INFLATER_SERVICE)).inflate(viewId, parent, false));
     }
 
     public void refreshData(T data, int position) {

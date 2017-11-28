@@ -48,7 +48,7 @@ public class OrderHelper {
                 format = "待支付";
                 break;
 
-            case "3": // 已支付
+            case "3": // 已支付 待录入
                 format = "已支付";
                 break;
 

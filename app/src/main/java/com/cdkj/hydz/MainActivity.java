@@ -118,7 +118,7 @@ public class MainActivity extends AbsBaseActivity {
 
     }
 
-    private void setTabDark(){
+    private void setTabDark() {
         mBinding.layoutMainButtom.imgMain.setImageResource(R.mipmap.main_dark);
         mBinding.layoutMainButtom.imgOrder.setImageResource(R.mipmap.order_dark);
         mBinding.layoutMainButtom.imgMan.setImageResource(R.mipmap.man_dark);
@@ -172,7 +172,7 @@ public class MainActivity extends AbsBaseActivity {
 
     @Override
     public void onBackPressed() {
-        showDoubleWarnListen("确认退出？",view -> {
+        showDoubleWarnListen("确认退出？", view -> {
             EventBus.getDefault().post(EventTags.AllFINISH);
             finish();
         });

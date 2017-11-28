@@ -34,7 +34,7 @@ public class OrderFragment extends BaseRefreshFragment<OrderModel.ListBean> {
 
     private HeadOrderBinding mHerderView;
 
-    // 1 待量体,2 待支付,3 已支付,4 待复核,5 待生产,6 生产中,7 已发货,8 已收货,9 已评价,10 已归档,11 取消订单
+    // 1 待量体,2 待支付,3 已支付（待录入）,4 待复核,5 待生产,6 生产中,7 已发货,8 已收货,9 已评价,10 已归档,11 取消订单
     private String status = "";
 
     private String burry = "";
@@ -69,10 +69,10 @@ public class OrderFragment extends BaseRefreshFragment<OrderModel.ListBean> {
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
 
             OrderModel.ListBean bean = (OrderModel.ListBean) adapter.getItem(position);
-            if(bean.getStatus().equals("1")){
-                ProductActivity.open(mActivity,bean.getCode());
-            }else {
-                OrderActivity.open(mActivity, bean.getCode(), "", bean.getType(),false,null);
+            if (bean.getStatus().equals("1")) {
+                ProductActivity.open(mActivity, bean.getCode());
+            } else {
+                OrderActivity.open(mActivity, bean.getCode(), "", bean.getType(), false, null);
             }
 
         });

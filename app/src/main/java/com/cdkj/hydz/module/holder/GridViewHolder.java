@@ -130,8 +130,9 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 //        });
 
         // 是否有颜色需要选择
-        if (list.get(position).getColorPcList().size() > 0)
+        if (list.get(position).getColorPcList().size() > 0) {
             initColorRecycle(list, position);
+        }
     }
 
 
@@ -227,19 +228,19 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-            ProductCraftModel.ProductCategoryListBean.CraftListBean beanDate = craftList.get(position);
+            ProductCraftModel.ProductCategoryListBean.CraftListBean beanData = craftList.get(position);
 
-            if (beanDate == null) return;
+            if (beanData == null) return;
 
-            if (beanDate.isSelect()) {
+            if (beanData.isSelect()) {
 //                holder.txtBorder.setBackgroundResource(R.drawable.border_order_blue);
-                ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + beanDate.getSelected(), holder.imgItem);
+                ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + beanData.getSelected(), holder.imgItem);
             } else {
 //                holder.txtBorder.setBackgroundResource(R.drawable.border_order_gray);
-                ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + beanDate.getPic(), holder.imgItem);
+                ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + beanData.getPic(), holder.imgItem);
             }
 
-            holder.txtName.setText(beanDate.getName());
+            holder.txtName.setText(beanData.getName());
 
 
             holder.imgItem.setOnClickListener(view -> {
@@ -248,7 +249,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
                     bean.setSelect(false);
                 }
 
-                setSelectValue(craftList.get(position));
+                setSelectValue(beanData);
 
 
                 this.notifyDataSetChanged();
@@ -271,6 +272,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
             } else {
                 layoutColor.setVisibility(View.GONE);
 
+                //清空颜色所选状态
                 if (productCategoryList.get(itemPosition).getColorPcList().size() > 0) {
                     for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean bean2 : productCategoryList.get(itemPosition).getColorPcList().get(0).getColorCraftList()) {
                         bean2.setSelect(false);
@@ -322,15 +324,20 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
-            if (colorList.get(position).isSelect()) {
+
+            ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean beanData = colorList.get(position);
+
+            if (beanData == null) return;
+
+            if (beanData.isSelect()) {
                 holder.txtBorder.setBackgroundResource(R.drawable.border_order_blue);
             } else {
                 holder.txtBorder.setBackgroundResource(R.drawable.border_order_gray);
             }
 
-            ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + colorList.get(position).getPic(), holder.imgItem);
+            ImgUtils.loadRoundImage(mActivity, MyConfig.IMGURL + beanData.getPic(), holder.imgItem);
 
-            holder.txtName.setText(colorList.get(position).getName());
+            holder.txtName.setText(beanData.getName());
 
             holder.txtBorder.setOnClickListener(view -> {
 //                if (!colorList.get(position).isSelect()) { //如果已经选择过就不用再选
@@ -338,8 +345,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
                     bean.setSelect(false);
                 }
 
-
-                setSelectValue(colorList.get(position));
+                setSelectValue(beanData);
 
                 notifyDataSetChanged();
 
@@ -381,6 +387,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
                     setSelectValue(bean);
                 }
             }
+
         }
 
 

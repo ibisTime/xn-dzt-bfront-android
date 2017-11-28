@@ -52,5 +52,5 @@ dependencies {
     compile 'cn.yipianfengye.android:zxing-library:2.1'
 
     // multiDex
-    compile 'com.android.support:multidex:1.0.1'
+//    compile 'com.android.support:multidex:1.0.1'
 }

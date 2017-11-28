@@ -2,121 +2,121 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:background="@color/gray_f8f8f8"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_f8f8f8"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginBottom="24dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_message"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:background="@drawable/corner_message"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="40dp">
+                    android:gravity="center">
 
                     <EditText
                         android:id="@+id/edt_search"
-                        android:background="@null"
-                        android:hint="请输入订单编号、客户姓名或手机号"
-                        android:textColorHint="@color/gray_b3b3b3"
-                        android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:background="@null"
+                        android:hint="请输入订单编号、客户姓名或手机号"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray_b3b3b3"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_search"
+                    android:layout_width="63dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/corner_order_blue"
                     android:gravity="center"
                     android:text="搜索"
-                    android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:background="@drawable/corner_order_blue"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="63dp"
-                    android:layout_height="40dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-       <LinearLayout
-           android:background="@color/gray_f2f2f2"
-           android:layout_marginBottom="24dp"
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="39dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/gray_f2f2f2"
+            android:orientation="horizontal">
 
-           <TextView
-               android:id="@+id/txt_all"
-               android:gravity="center"
-               android:text="全部订单"
-               android:textSize="12sp"
-               android:textColor="@color/black"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_all"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="全部订单"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-           <TextView
-               android:id="@+id/txt_wait_measure"
-               android:gravity="center"
-               android:text="待量体"
-               android:textSize="12sp"
-               android:textColor="@color/gray_b3b3b3"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_wait_measure"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待量体"
+                android:textColor="@color/gray_b3b3b3"
+                android:textSize="12sp" />
 
-           <TextView
-               android:id="@+id/txt_wait_pay"
-               android:gravity="center"
-               android:text="待支付"
-               android:textSize="12sp"
-               android:textColor="@color/gray_b3b3b3"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_wait_pay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待支付"
+                android:textColor="@color/gray_b3b3b3"
+                android:textSize="12sp" />
 
-           <TextView
-               android:id="@+id/txt_wait_input"
-               android:gravity="center"
-               android:text="待录入"
-               android:textSize="12sp"
-               android:textColor="@color/gray_b3b3b3"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_wait_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待录入"
+                android:textColor="@color/gray_b3b3b3"
+                android:textSize="12sp" />
 
-           <TextView
-               android:id="@+id/txt_wait_check"
-               android:gravity="center"
-               android:text="待复核"
-               android:textSize="12sp"
-               android:textColor="@color/gray_b3b3b3"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txt_wait_check"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待复核"
+                android:textColor="@color/gray_b3b3b3"
+                android:textSize="12sp" />
 
-       </LinearLayout>
+        </LinearLayout>
 
         <View style="@style/style_split_line_mg18" />
 

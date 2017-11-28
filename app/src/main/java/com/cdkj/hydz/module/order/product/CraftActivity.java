@@ -31,6 +31,9 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+/**
+ * 工艺选择界面
+ */
 public class CraftActivity extends AbsBaseActivity {
 
     private ActivityCraftBinding mBinding;
@@ -55,9 +58,9 @@ public class CraftActivity extends AbsBaseActivity {
 
         mBinding.btnConfirm.setOnClickListener(view -> {
 
-            if (check()){
+            if (check()) {
                 packData();
-            }else{
+            } else {
                 showToast("请完成所有工艺选择");
             }
 
@@ -70,16 +73,12 @@ public class CraftActivity extends AbsBaseActivity {
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle("选择工艺");
         setSubLeftImgState(true);
-
         initRecyclerView();
-
-        if (getIntent() != null){
+        if (getIntent() != null) {
             modelSpecsCode = getIntent().getStringExtra("modelSpecsCode");
             getCraft();
-
         }
     }
-
 
 
     /**
@@ -107,7 +106,7 @@ public class CraftActivity extends AbsBaseActivity {
     public void getCraft() {
 
         Map<String, String> map = new HashMap<>();
-        map.put("status","1");
+        map.put("status", "1");
         map.put("modelSpecsCode", modelSpecsCode);
 
         Call call = RetrofitUtils.createApi(MyApiServer.class).getProductCraftList("620054", StringUtils.getJsonToString(map));
@@ -123,8 +122,10 @@ public class CraftActivity extends AbsBaseActivity {
                 if (data == null)
                     return;
 
+                list.clear();
                 list.addAll(data.getProductCategoryList());
                 adapter.notifyDataSetChanged();
+
 
             }
 
@@ -136,10 +137,10 @@ public class CraftActivity extends AbsBaseActivity {
     }
 
     @Subscribe
-    public void update(String tag){
-        if (tag.equals(EventTags.UPDATE)){
-            for (int i = 0; i<list.size(); i++){
-                if (list.get(i).getKind().equals("4") || list.get(i).getKind().equals("1")){
+    public void update(String tag) {
+        if (tag.equals(EventTags.UPDATE)) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getKind().equals("4") || list.get(i).getKind().equals("1")) {
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -149,16 +150,17 @@ public class CraftActivity extends AbsBaseActivity {
 
     /**
      * 全部已选true，有未选false
+     *
      * @return
      */
-    private boolean check(){
+    private boolean check() {
 
-        for(ProductCraftModel.ProductCategoryListBean bean : list){
+        for (ProductCraftModel.ProductCategoryListBean bean : list) {
 
-            Log.e("value",bean.getDvalue());
-            Log.e("kind",bean.getKind());
+            Log.e("value", bean.getDvalue());
+            Log.e("kind", bean.getKind());
 
-            if (!checkCraft(bean)){
+            if (!checkCraft(bean)) {
                 return false;
             }
 
@@ -169,18 +171,19 @@ public class CraftActivity extends AbsBaseActivity {
 
     /**
      * 需要颜色时判断是否有颜色已选，已选true，全部未选false
+     *
      * @param bean
      * @return
      */
     private Boolean checkColor(ProductCraftModel.ProductCategoryListBean bean) {
 
-        if (bean.getColorPcList().size()!=0){
-            for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean colorCraftListBean : bean.getColorPcList().get(0).getColorCraftList()){
-                if (colorCraftListBean.isSelect()){
+        if (bean.getColorPcList().size() != 0) {
+            for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean colorCraftListBean : bean.getColorPcList().get(0).getColorCraftList()) {
+                if (colorCraftListBean.isSelect()) {
                     return true;
                 }
             }
-            Toast.makeText(this, "请选择"+bean.getColorPcList().get(0).getDvalue(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请选择" + bean.getColorPcList().get(0).getDvalue(), Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -189,52 +192,53 @@ public class CraftActivity extends AbsBaseActivity {
 
     /**
      * 工艺是否被选择，已选true，全部未选false
+     *
      * @param bean
      * @return
      */
     private boolean checkCraft(ProductCraftModel.ProductCategoryListBean bean) {
 
-        if (checkContent()){ // 已填写刺绣内容
-            if (bean.getCraftList().size()!=0){
-                for(ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()){
-                    if (craftListBean.isSelect()){
-                        if (craftListBean.getIsHit() != null){
-                            if (craftListBean.getIsHit().equals("1")){ // 已选择的工艺是否需要颜色
+        if (checkContent()) { // 已填写刺绣内容
+            if (bean.getCraftList().size() != 0) {
+                for (ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()) {
+                    if (craftListBean.isSelect()) {
+                        if (craftListBean.getIsHit() != null) {
+                            if (craftListBean.getIsHit().equals("1")) { // 已选择的工艺是否需要颜色
                                 return checkColor(bean);
-                            }else {
+                            } else {
                                 return true;
                             }
-                        }else {
+                        } else {
                             return true;
                         }
 
                     }
 
                 }
-                Toast.makeText(this, "请选择"+bean.getDvalue(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "请选择" + bean.getDvalue(), Toast.LENGTH_SHORT).show();
                 return false;
 
             }
-        }else {
+        } else {
 
-            if (bean.getKind().equals("3") || bean.getKind().equals("4") || bean.getKind().equals("1")){
+            if (bean.getKind().equals("3") || bean.getKind().equals("4") || bean.getKind().equals("1")) {
                 // 非必填
                 return true;
-            }else {
-                if (bean.getCraftList().size()!=0){
-                    for(ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()){
-                        if (craftListBean.isSelect()){
+            } else {
+                if (bean.getCraftList().size() != 0) {
+                    for (ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()) {
+                        if (craftListBean.isSelect()) {
 
-                            if (craftListBean.getIsHit().equals("1")){ // 已选择的工艺是否需要颜色
+                            if (craftListBean.getIsHit().equals("1")) { // 已选择的工艺是否需要颜色
                                 return checkColor(bean);
-                            }else {
+                            } else {
                                 return true;
                             }
 
                         }
 
                     }
-                    Toast.makeText(this, "请选择"+bean.getDvalue(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请选择" + bean.getDvalue(), Toast.LENGTH_SHORT).show();
                     return false;
 
                 }
@@ -248,15 +252,15 @@ public class CraftActivity extends AbsBaseActivity {
     /**
      * 刺绣内容
      */
-    private boolean checkContent(){
+    private boolean checkContent() {
 
-        for(ProductCraftModel.ProductCategoryListBean bean : list){
-            if (bean.getKind().equals("3")){
+        for (ProductCraftModel.ProductCategoryListBean bean : list) {
+            if (bean.getKind().equals("3")) {
 
-                if (bean.getCraftList()!=null){
+                if (bean.getCraftList() != null) {
 
-                    for(ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()){
-                        if (craftListBean.isSelect()){
+                    for (ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()) {
+                        if (craftListBean.isSelect()) {
                             return true;
                         }
 
@@ -273,16 +277,16 @@ public class CraftActivity extends AbsBaseActivity {
 
     }
 
-    private void packData(){
+    private void packData() {
         ProductCommitModel model = new ProductCommitModel();
         model.setModelSpecsCode(modelSpecsCode);
 
-        for(ProductCraftModel.ProductCategoryListBean bean : list){
-            if (bean.getCraftList().size()!=0){
-                for(ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()){
-                    if (craftListBean.isSelect()){
+        for (ProductCraftModel.ProductCategoryListBean bean : list) {
+            if (bean.getCraftList().size() != 0) {
+                for (ProductCraftModel.ProductCategoryListBean.CraftListBean craftListBean : bean.getCraftList()) {
+                    if (craftListBean.isSelect()) {
 
-                        ProductCommitModel.ValueBean b =  new ProductCommitModel.ValueBean();
+                        ProductCommitModel.ValueBean b = new ProductCommitModel.ValueBean();
                         b.setKey(bean.getDkey());
                         b.setName(craftListBean.getName());
 
@@ -294,11 +298,11 @@ public class CraftActivity extends AbsBaseActivity {
                 }
             }
 
-            if (bean.getColorPcList().size()!=0){
-                for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean colorCraftListBean : bean.getColorPcList().get(0).getColorCraftList()){
-                    if (colorCraftListBean.isSelect()){
+            if (bean.getColorPcList().size() != 0) {
+                for (ProductCraftModel.ProductCategoryListBean.ColorPcList.ColorCraftListBean colorCraftListBean : bean.getColorPcList().get(0).getColorCraftList()) {
+                    if (colorCraftListBean.isSelect()) {
 
-                        ProductCommitModel.ValueBean b =  new ProductCommitModel.ValueBean();
+                        ProductCommitModel.ValueBean b = new ProductCommitModel.ValueBean();
                         b.setKind(bean.getKind());
                         b.setCode(colorCraftListBean.getCode());
                         b.setPrice(colorCraftListBean.getPrice());
@@ -308,7 +312,6 @@ public class CraftActivity extends AbsBaseActivity {
             }
         }
 
-        Log.e("packData().size()",model.getValueList().size()+"");
 
         EventBus.getDefault().post(model);
         finish();

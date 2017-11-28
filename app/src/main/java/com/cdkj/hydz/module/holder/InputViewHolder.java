@@ -78,6 +78,8 @@ public class InputViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
                 bean.setSelect(true);
                 bean.setName(edtContent.getText().toString().toString());
                 data.get(position).getCraftList().add(bean);
+            } else {
+                txtCraftValue.setText("");
             }
 
             EventBus.getDefault().post(EventTags.UPDATE);

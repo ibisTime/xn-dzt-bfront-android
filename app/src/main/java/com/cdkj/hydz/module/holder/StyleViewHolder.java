@@ -19,6 +19,7 @@ import com.cdkj.hydz.module.model.ProductCraftModel;
 import java.util.List;
 
 /**
+ * 样式ViewHolder不带颜色
  * Created by lei on 2017/9/19.
  */
 
@@ -114,10 +115,12 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
 
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
+            ProductCraftModel.ProductCategoryListBean.CraftListBean itemData = craftList.get(position);
+            if (itemData == null) return;
 
-            holder.txtBorder.setText(craftList.get(position).getName());
+            holder.txtBorder.setText(itemData.getName());
 
-            if (craftList.get(position).isSelect()) {
+            if (itemData.isSelect()) {
                 holder.txtBorder.setBackgroundResource(R.drawable.corner_order_blue);
                 holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.white));
             } else {
@@ -125,7 +128,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
                 holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.gray_333333));
             }
 
-            holder.txtName.setText(craftList.get(position).getName());
+            holder.txtName.setText(itemData.getName());
 
             holder.txtBorder.setOnClickListener(view -> {
 //                if (!craftList.get(position).isSelect()) { //如果已经选择过就不在选择
@@ -134,7 +137,7 @@ public class StyleViewHolder extends BaseHolder<List<ProductCraftModel.ProductCa
                     bean.setSelect(false);
                 }
 
-                setSelectValue(craftList.get(position));
+                setSelectValue(itemData);
 
 //                    holder.txtBorder.setBackgroundResource(R.drawable.corner_order_blue);
 //                    holder.txtBorder.setTextColor(mActivity.getResources().getColor(R.color.white));
