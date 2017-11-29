@@ -32,7 +32,6 @@ public class RetrofitUtils {
         return retrofitInstance;
     }
 
-
     /**
      * 创建Retrofit请求Api
      *
