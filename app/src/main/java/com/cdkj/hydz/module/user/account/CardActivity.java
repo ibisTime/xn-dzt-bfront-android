@@ -64,6 +64,7 @@ public class CardActivity extends AbsBaseActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        setSubLeftImgState(true);
 
         if (getIntent() != null) {
             code = getIntent().getStringExtra("code");

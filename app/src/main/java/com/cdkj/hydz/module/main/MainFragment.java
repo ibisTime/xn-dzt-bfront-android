@@ -31,6 +31,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerClickListener;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -245,18 +246,19 @@ public class MainFragment extends BaseRefreshFragment<OrderModel.ListBean> {
         //设置指示器位置（当banner模式中有指示器时）
         mHerderView.banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner点击事件
-        mHerderView.banner.setOnBannerClickListener(new OnBannerClickListener() {
+        mHerderView.banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                if (bannerData.get(position - 1).getUrl() != null) {
+                if (!TextUtils.isEmpty(bannerData.get(position).getUrl())) {
 
-                    if (bannerData.get(position - 1).getUrl().indexOf("http") != -1) {
-                        WebViewActivity.openURL(mActivity, bannerData.get(position - 1).getName(), bannerData.get(position - 1).getUrl());
+                    if (bannerData.get(position).getUrl().indexOf("http") != -1) {
+                        WebViewActivity.openURL(mActivity, bannerData.get(position).getName(), bannerData.get(position).getUrl());
                     }
 
                 }
             }
         });
+
 
         // 设置在操作Banner时listView事件不触发
 //        mHerderView.banner.setOnPageChangeListener(new MyPageChangeListener());

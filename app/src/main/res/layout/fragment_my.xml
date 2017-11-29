@@ -44,7 +44,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center_vertical"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/photo_default" />
+                        android:src="@drawable/def_logo" />
 
                 </FrameLayout>
 

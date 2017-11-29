@@ -19,7 +19,7 @@ public class ProductCraftModel {
         this.productCategoryList = productCategoryList;
     }
 
-    public static class ProductCategoryListBean{
+    public static class ProductCategoryListBean {
         /**
          * code : 145
          * kind : 0
@@ -304,7 +304,7 @@ public class ProductCraftModel {
             }
         }
 
-        public static class ColorPcList{
+        public static class ColorPcList {
             private String code;
             private String kind;
             private String type;
@@ -438,6 +438,7 @@ public class ProductCraftModel {
                 public void setIsDefault(String isDefault) {
                     this.isDefault = isDefault;
                 }
+
                 public boolean isSelect() {
                     return isSelect;
                 }

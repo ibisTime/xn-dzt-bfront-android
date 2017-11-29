@@ -183,7 +183,7 @@ public class ManModel {
             private String updateDatetime;
             private String remark;
             private String systemCode;
-            private OrderSizeDataBean orderSizeData;
+            private OrderSizeDataBean sizeData;
 
             public double getId() {
                 return id;
@@ -257,12 +257,12 @@ public class ManModel {
                 this.systemCode = systemCode;
             }
 
-            public OrderSizeDataBean getOrderSizeData() {
-                return orderSizeData;
+            public OrderSizeDataBean getSizeData() {
+                return sizeData;
             }
 
-            public void setOrderSizeData(OrderSizeDataBean orderSizeData) {
-                this.orderSizeData = orderSizeData;
+            public void setSizeData(OrderSizeDataBean sizeData) {
+                this.sizeData = sizeData;
             }
 
             public static class OrderSizeDataBean {

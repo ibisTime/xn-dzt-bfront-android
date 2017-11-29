@@ -2,6 +2,7 @@ package com.cdkj.hydz.module.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.utils.LogUtil;
@@ -83,11 +84,11 @@ public class ProductCraftAdapter extends RecyclerView.Adapter<BaseHolder> {
             if (position == 0) {
                 return HEAD_VIEW;
             } else {
-                if (list.get(position - 1).getKind().equals("2")) {
+                if (TextUtils.equals(list.get(position - 1).getKind(), "2")) {
                     return STYLE_VIEW;
-                } else if (list.get(position - 1).getKind().equals("3")) {
+                } else if (TextUtils.equals(list.get(position - 1).getKind(), "3")) {
                     return INPUT_VIEW;
-                } else if (list.get(position - 1).getKind().equals("4")) {
+                } else if (TextUtils.equals(list.get(position - 1).getKind(), "4")) {
                     return GRID_VIEW;
                 } else {
                     return GRID_VIEW;

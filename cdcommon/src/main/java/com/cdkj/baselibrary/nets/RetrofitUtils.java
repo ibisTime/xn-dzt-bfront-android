@@ -56,10 +56,10 @@ public class RetrofitUtils {
 //        return "http://47.96.161.183:3301/forward-service/";
 
         // 研发
-        return "http://121.43.101.148:8901/forward-service/";
+//        return "http://121.43.101.148:8901/forward-service/";
 
         // 上线
-//        return "http://116.62.241.53:8901/forward-service/";
+        return "http://116.62.241.53:8901/forward-service/";
 
     }
 

@@ -47,12 +47,12 @@ public class ManActivity extends AbsBaseActivity {
     public List<OrderCommitModel.CommitBean> measureData = new ArrayList<>();
     public List<OrderCommitModel.CommitBean> bodyData = new ArrayList<>();
 
-    public static void open(Context context,String userId) {
+    public static void open(Context context, String userId) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, ManActivity.class);
-        intent.putExtra("userId",userId);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 
@@ -99,9 +99,9 @@ public class ManActivity extends AbsBaseActivity {
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
                 OrderHelper.systemParameterModel = data;
-                if (OrderHelper.systemParameterModel != null){
+                if (OrderHelper.systemParameterModel != null) {
                     getUserParameter();
-                }else {
+                } else {
                     showToast("页面错误，请关闭重试");
                 }
 
@@ -130,9 +130,9 @@ public class ManActivity extends AbsBaseActivity {
             protected void onSuccess(UserParameterModel data, String SucMessage) {
 
                 OrderHelper.userParameterModel = data;
-                if (OrderHelper.userParameterModel != null){
+                if (OrderHelper.userParameterModel != null) {
                     getUser();
-                }else {
+                } else {
                     showToast("页面错误，请关闭重试");
                 }
 
@@ -163,13 +163,13 @@ public class ManActivity extends AbsBaseActivity {
 
                 OrderHelper.manModel = data;
 
-                if(OrderHelper.manModel != null){
+                if (OrderHelper.manModel != null) {
 
                     // 使用订单详情model初始化view
                     setView(data);
 
                     EventBus.getDefault().post(EventTags.MANDATAOK);
-                }else {
+                } else {
                     showToast("页面错误，请关闭重试");
                 }
             }
@@ -184,10 +184,10 @@ public class ManActivity extends AbsBaseActivity {
 
     private void setView(ManModel data) {
 
-        if (data.getRealName() != null){
+        if (data.getRealName() != null) {
             mBinding.txtName.setText(data.getRealName());
             mBinding.txtManName.setText(data.getRealName());
-        }else {
+        } else {
             mBinding.txtName.setText(data.getRealName());
             mBinding.txtManName.setText(data.getRealName());
         }
@@ -196,8 +196,8 @@ public class ManActivity extends AbsBaseActivity {
         mBinding.txtManPhone.setText(data.getMobile());
         mBinding.txtManAddress.setText(data.getAddress());
 
-        mBinding.txtManDays.setText(data.getDays()+"");
-        mBinding.txtManBirthday.setText(DateUtil.formatStringData(data.getBirthday(),DateUtil.DATE_FMT_YMD)+"");
+        mBinding.txtManDays.setText(data.getDays() + "");
+        mBinding.txtManBirthday.setText(DateUtil.formatStringData(data.getBirthday(), DateUtil.DATE_FMT_YMD) + "");
 
         mBinding.txtManExp.setText(MoneyUtils.showPriceWithoutUnit(data.getJyAmount()).split("\\.")[0]);
         mBinding.txtManLevelUp.setText(MoneyUtils.showPriceWithoutUnit(data.getSjAmount()).split("\\.")[0]);
@@ -207,13 +207,13 @@ public class ManActivity extends AbsBaseActivity {
 
         getUserParameter(data.getLevel());
 
-        if (data.getSysDictMap()!=null && data.getSysDictMap().getOther()!=null){
-            for(ManModel.SysDictMapBean.OtherBean bean : data.getSysDictMap().getOther()){
-                if (bean.getOrderSizeData() != null){
-                    if (bean.getDkey().equals("6-02")){// 身高
-                        mBinding.txtManHeight.setText(bean.getOrderSizeData().getDkey()+" cm");
-                    }else if(bean.getDkey().equals("6-03")){ // 体重
-                        mBinding.txtManWeight.setText(bean.getOrderSizeData().getDkey()+" kg");
+        if (data.getSysDictMap() != null && data.getSysDictMap().getOther() != null) {
+            for (ManModel.SysDictMapBean.OtherBean bean : data.getSysDictMap().getOther()) {
+                if (bean.getSizeData() != null) {
+                    if (TextUtils.equals(bean.getDkey(), "6-02")) {// 身高
+                        mBinding.txtManHeight.setText(bean.getSizeData().getDkey() + " cm");
+                    } else if (TextUtils.equals(bean.getDkey(), "6-03")) { // 体重
+                        mBinding.txtManWeight.setText(bean.getSizeData().getDkey() + " kg");
                     }
                 }
             }
@@ -227,10 +227,10 @@ public class ManActivity extends AbsBaseActivity {
             JSONObject jsonObject = new JSONObject(OrderHelper.userParameterModel.getUser_level());
             Iterator it = jsonObject.keys();
 
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 String key = (String) it.next();
 
-                if (key.equals(level)){
+                if (key.equals(level)) {
 
                     mBinding.txtManLevel.setText(jsonObject.getString(key));
 
@@ -261,29 +261,29 @@ public class ManActivity extends AbsBaseActivity {
     /**
      * 组装所有量体map数据
      */
-    private Map<String,String> getMeasureMapData(){
-        Map<String,String> map = new HashMap<>();
+    private Map<String, String> getMeasureMapData() {
+        Map<String, String> map = new HashMap<>();
 
         // 量体数据
-        if (dataMeasureCheck(measureData)){
+        if (dataMeasureCheck(measureData)) {
 
-            for (OrderCommitModel.CommitBean bean : measureData){
+            for (OrderCommitModel.CommitBean bean : measureData) {
                 map.put(bean.getKey(), bean.getValue());
             }
 
-        }else {
+        } else {
             showToast("请完整填写量体信息");
             return null;
         }
 
         // 特体数据
-        if (dataMeasureCheck(bodyData)){
+        if (dataMeasureCheck(bodyData)) {
 
-            for (OrderCommitModel.CommitBean bean : bodyData){
+            for (OrderCommitModel.CommitBean bean : bodyData) {
                 map.put(bean.getKey(), bean.getValue());
             }
 
-        }else {
+        } else {
             showToast("请完整填写特体信息");
             return null;
         }
@@ -291,16 +291,16 @@ public class ManActivity extends AbsBaseActivity {
         return map;
     }
 
-    private boolean dataMeasureCheck(List<OrderCommitModel.CommitBean> data){
-        if(data == null || data.size()==0){
+    private boolean dataMeasureCheck(List<OrderCommitModel.CommitBean> data) {
+        if (data == null || data.size() == 0) {
             showToast("请确认已填写的信息");
             return false;
         } else {
 
-            for (OrderCommitModel.CommitBean bean : data){
+            for (OrderCommitModel.CommitBean bean : data) {
 
-                if (bean.getRemark().equals("1")){ // 是否必填 0选填，1必填
-                    if(TextUtils.isEmpty(bean.getValue())){
+                if (bean.getRemark().equals("1")) { // 是否必填 0选填，1必填
+                    if (TextUtils.isEmpty(bean.getValue())) {
                         return false;
                     }
                 }
@@ -311,9 +311,9 @@ public class ManActivity extends AbsBaseActivity {
         }
     }
 
-    private void commit(){
+    private void commit() {
 
-        Map<String,String> codeMap = getMeasureMapData();
+        Map<String, String> codeMap = getMeasureMapData();
         if (codeMap == null) {
             return;
         }
@@ -332,7 +332,7 @@ public class ManActivity extends AbsBaseActivity {
 
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
-                if (data.isSuccess()){
+                if (data.isSuccess()) {
                     showToast("修改成功");
                     finish();
                 }

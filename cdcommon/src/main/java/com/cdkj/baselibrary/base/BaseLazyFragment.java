@@ -7,14 +7,14 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     /**
      * 在这里实现Fragment数据的缓加载.
+     *
      * @param isVisibleToUser
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             lazyLoad();
-
         } else {
             onInvisible();
         }

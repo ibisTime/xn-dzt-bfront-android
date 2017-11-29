@@ -130,7 +130,7 @@ public class GridViewHolder extends BaseHolder<List<ProductCraftModel.ProductCat
 //        });
 
         // 是否有颜色需要选择
-        if (list.get(position).getColorPcList().size() > 0) {
+        if (list.get(position) != null && list.get(position).getColorPcList() != null && list.get(position).getColorPcList().size() > 0) {
             initColorRecycle(list, position);
         }
     }
